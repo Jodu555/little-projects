@@ -77,5 +77,18 @@
 		particlesJS.load('particles', 'particles.json', () => {
 			console.log('callback - particles.js config loaded');
 		});
+
+		[...document.querySelectorAll('.button-group button')].forEach((btn) => {
+			btn.addEventListener('click', () => {
+				clearButtons();
+				btn.classList.add('active');
+			});
+		});
+
+		function clearButtons() {
+			[...document.querySelectorAll('button.active')].forEach((btn) => {
+				btn.classList.remove('active');
+			});
+		}
 	</script>
 </html>
