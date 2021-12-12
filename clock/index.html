@@ -25,14 +25,21 @@
 			font-size: 4vw;
 		}
 	</style>
-	<body>
+	<body id="part">
 		<div class="clock">
 			<h1 id="clock"></h1>
 		</div>
 	</body>
+	<!-- particles.js lib - https://github.com/VincentGarreau/particles.js -->
+	<script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+	<!-- stats.js lib -->
+	<script src="http://threejs.org/examples/js/libs/stats.min.js"></script>
 	<script>
 		setInterval(() => {
 			document.querySelector('#clock').innerHTML = new Date().toLocaleString();
 		}, 100);
+		particles.load('part', 'particles.json', function () {
+			console.log('callback - particles.js config loaded');
+		});
 	</script>
 </html>
