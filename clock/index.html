@@ -24,8 +24,14 @@
 		.clock {
 			font-size: 4vw;
 		}
+		#particles {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+		}
 	</style>
-	<body id="part">
+	<body>
+		<div id="particles" style="height: 100%; width: 100%"></div>
 		<div class="clock">
 			<h1 id="clock"></h1>
 		</div>
@@ -38,7 +44,7 @@
 		setInterval(() => {
 			document.querySelector('#clock').innerHTML = new Date().toLocaleString();
 		}, 100);
-		particles.load('part', 'particles.json', function () {
+		particlesJS.load('particles', 'particles.json', () => {
 			console.log('callback - particles.js config loaded');
 		});
 	</script>
