@@ -29,8 +29,20 @@
 			width: 100%;
 			height: 100%;
 		}
+		.button-group {
+			top: 1vw;
+			left: 50%;
+			transform: translateX(-50%);
+			position: absolute;
+			display: flex;
+		}
 	</style>
 	<body>
+		<div class="button-group">
+			<button>Date</button>
+			<button>Time</button>
+			<button>Both</button>
+		</div>
 		<div id="particles" style="height: 100%; width: 100%"></div>
 		<div class="clock">
 			<h1 id="clock"></h1>
