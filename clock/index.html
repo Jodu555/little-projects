@@ -57,9 +57,9 @@
 	</style>
 	<body>
 		<div class="button-group">
-			<button>Date</button>
-			<button>Time</button>
-			<button class="active">Both</button>
+			<button id="date">Date</button>
+			<button id="time">Time</button>
+			<button class="active" id="both">Both</button>
 		</div>
 		<div id="particles" style="height: 100%; width: 100%"></div>
 		<div class="clock">
@@ -72,7 +72,14 @@
 	<script src="http://threejs.org/examples/js/libs/stats.min.js"></script>
 	<script>
 		setInterval(() => {
-			document.querySelector('#clock').innerHTML = new Date().toLocaleString();
+			const type = document.querySelector('#time')?.classList.contains('active')
+				? 'Time'
+				: document.querySelector('#date').classList.contains('active')
+				? 'Date'
+				: '';
+			const fn = 'toLocale' + type + 'String';
+			const time = new Date()[fn]();
+			document.querySelector('#clock').innerHTML = time;
 		}, 100);
 		particlesJS.load('particles', 'particles.json', () => {
 			console.log('callback - particles.js config loaded');
