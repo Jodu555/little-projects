@@ -38,9 +38,10 @@
 			display: flex;
 		}
 		button {
+			transition: all 0.5s ease-in-out;
 			color: rgb(240, 235, 235);
-			padding: 1rem;
-			border-radius: 4px;
+			padding: 0.6rem;
+			border-radius: 5px;
 			border: none;
 			font-family: inherit;
 			color: #2222e1;
@@ -48,12 +49,17 @@
 			margin: 0.5rem;
 			cursor: pointer;
 		}
+
+		button.active {
+			background-color: rgb(112 112 112);
+			color: #0000ff;
+		}
 	</style>
 	<body>
 		<div class="button-group">
 			<button>Date</button>
 			<button>Time</button>
-			<button>Both</button>
+			<button class="active">Both</button>
 		</div>
 		<div id="particles" style="height: 100%; width: 100%"></div>
 		<div class="clock">
