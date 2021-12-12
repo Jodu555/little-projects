@@ -1,5 +1,7 @@
 const clock = document.querySelector('#clock');
 let previousType = '';
+
+updateClock();
 setInterval(updateClock, 1000);
 
 function getCurrentTimeType() {
