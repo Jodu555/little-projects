@@ -1,7 +1,6 @@
 # little-projects
 Just a little hodgepodge of little projects
 
-
 ## Lists of Projects in this Repo
 
 * Bitcoin Viewer: http://btc.jodu555.de
