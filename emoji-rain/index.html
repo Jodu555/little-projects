@@ -26,7 +26,10 @@
 		}, 5000);
 	}
 
-	setInterval(() => {
+	window.requestAnimationFrame(render);
+
+	function render() {
 		appendEmoji();
-	}, 10);
+		window.requestAnimationFrame(render);
+	}
 </script>
