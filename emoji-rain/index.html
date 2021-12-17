@@ -11,7 +11,7 @@
 </html>
 
 <script>
-	const emojis = ['💙', '❤', '💚', '💜', '🎇', '🎉'];
+	const emojis = ['💙', '❤', '💚', '💜', '🎇', '🎉', '🚀', '🎶', '💖'];
 
 	function appendEmoji() {
 		const emoji = document.createElement('div');
@@ -29,7 +29,10 @@
 	window.requestAnimationFrame(render);
 
 	function render() {
-		appendEmoji();
+		for (let i = 0; i < 15; i++) {
+			appendEmoji();
+		}
+
 		window.requestAnimationFrame(render);
 	}
 </script>
