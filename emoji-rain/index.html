@@ -11,16 +11,20 @@
 </html>
 
 <script>
-	function appendHeart() {
-		const heart = document.createElement('div');
-		heart.classList.add('heart');
-		heart.style.left = Math.random() * 100 + 'vh';
-		heart.style.animationDuration = Math.random() * 2 + 3 + 's';
-		heart.innerText = '💙';
-		document.body.appendChild(heart);
+	function appendEmoji() {
+		const emoji = document.createElement('div');
+		emoji.classList.add('emoji');
+		emoji.style.left = Math.random() * 100 + 'vw';
+		console.log(emoji.style.left);
+		emoji.style.animationDuration = Math.random() * 2 + 3 + 's';
+		emoji.innerText = '💙';
+		document.body.appendChild(emoji);
+		setTimeout(() => {
+			emoji.remove();
+		}, 5000);
 	}
 
 	setInterval(() => {
-		appendHeart();
-	}, 1000);
+		appendEmoji();
+	}, 100);
 </script>
