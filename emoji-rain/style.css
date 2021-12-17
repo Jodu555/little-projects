@@ -13,7 +13,7 @@ body {
 
 .emoji {
     position: fixed;
-    top: -1vh;
+    top: -10vh;
     transform: translateY(0);
     animation: fall 3s linear;
 }

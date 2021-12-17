@@ -11,13 +11,15 @@
 </html>
 
 <script>
+	const emojis = ['💙', '❤', '💚', '💜', '🎇', '🎉'];
+
 	function appendEmoji() {
 		const emoji = document.createElement('div');
 		emoji.classList.add('emoji');
 		emoji.style.left = Math.random() * 100 + 'vw';
-		console.log(emoji.style.left);
-		emoji.style.animationDuration = Math.random() * 2 + 3 + 's';
-		emoji.innerText = '💙';
+		emoji.style.animationDuration = Math.random() * 2 + 2 + 's';
+		emoji.style.fontSize = Math.floor(Math.random() * 20) + 20 + 'px';
+		emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
 		document.body.appendChild(emoji);
 		setTimeout(() => {
 			emoji.remove();
@@ -26,5 +28,5 @@
 
 	setInterval(() => {
 		appendEmoji();
-	}, 100);
+	}, 10);
 </script>
