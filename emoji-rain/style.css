@@ -16,10 +16,11 @@ body {
     top: -10vh;
     transform: translateY(0);
     animation: fall 3s linear;
+    user-select: none;
 }
 
 @keyframes fall {
     to {
-        transform: translateY(105vh);
+        transform: translateY(115vh);
     }
 }
