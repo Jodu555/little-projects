@@ -1,18 +1,35 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+	<div class="home">
+		Counter: {{ counter }}
+
+		<p>{{ message }}</p>
+		<input v-model="message" />
+		<br />
+		<button @click="increment()">Increment</button>
+	</div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+//import HelloWorld from '@/components/HelloWorld.vue';
 
 export default {
-  name: 'Home',
-  components: {
-    HelloWorld
-  }
-}
+	name: 'Home',
+	data() {
+		return {
+			counter: 0,
+			message: '',
+		};
+	},
+	mounted() {
+		setInterval(() => {
+			this.counter++;
+		}, 1000);
+	},
+	methods: {
+		increment() {
+			this.counter++;
+		},
+	},
+};
 </script>
