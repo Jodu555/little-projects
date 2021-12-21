@@ -1,35 +1,29 @@
 <template>
 	<div class="home">
-		Counter: {{ counter }}
+		Counter: {{ $store.state.count }}
 
 		<p>{{ message }}</p>
 		<input v-model="message" />
 		<br />
-		<button @click="increment()">Increment</button>
+		<button @click="increment">Increment</button>
 	</div>
 </template>
 
 <script>
 // @ is an alias to /src
 //import HelloWorld from '@/components/HelloWorld.vue';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
 	name: 'Home',
 	data() {
 		return {
-			counter: 0,
 			message: '',
 		};
 	},
-	mounted() {
-		setInterval(() => {
-			this.counter++;
-		}, 1000);
-	},
+	mounted() {},
 	methods: {
-		increment() {
-			this.counter++;
-		},
+		...mapActions(['increment', 'decrement', 'incrementIfOdd', 'incrementAsync']),
 	},
 };
 </script>
