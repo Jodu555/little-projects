@@ -1,6 +1,9 @@
 const clock = document.querySelector('#clock');
 let previousType = '';
 
+//TODO: Implement this too clock update:
+// https://codesandbox.io/s/vanilla-js-text-transition-example-hc7kq?from-embed=&file=/src/index.js
+
 updateClock();
 setInterval(updateClock, 1000);
 
