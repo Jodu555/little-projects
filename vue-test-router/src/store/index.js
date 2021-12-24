@@ -23,14 +23,13 @@ export default createStore({
     increment: ({ commit }) => commit('increment'),
     decrement: ({ commit }) => commit('decrement'),
     loadUser: async ({ commit }) => {
-      console.log(123);
-      return new Promise(async (resolve, reject) => {
-        const response = await fetch('https://random-data-api.com/api/users/random_user');
-        const json = await response.json();
-        console.log(json);
-        commit('addUser', json);
-        resolve();
-      });
+      const response = await fetch('https://random-data-api.com/api/users/random_user');
+      const json = await response.json();
+      commit('addUser', json);
+      // return new Promise(async (resolve, reject) => {
+
+      //   resolve();
+      // });
     },
   },
   modules: {
