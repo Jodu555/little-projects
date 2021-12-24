@@ -1,23 +1,31 @@
 <template>
 	<div>
-		<button @click="loadUser()">Another One</button>
-		<button @click="clearUser()">Clear All</button>
-		<table>
-			<tr>
-				<th>First Name</th>
-				<th>Last Name</th>
-				<th>emial</th>
-				<th>gender</th>
-				<th>Location</th>
-			</tr>
-			<tr v-for="user in users" :key="user.id">
-				<td>{{ user.first_name }}</td>
-				<td>{{ user.last_name }}</td>
-				<td>{{ user.email }}</td>
-				<td>{{ user.gender }}</td>
-				<td>{{ user.address.city }} - {{ user.address.state }} / {{ user.address.country }}</td>
-			</tr>
-			<br />
+		<div class="row text-center justify-content-center">
+			<button class="col-2 btn btn-outline-primary" @click="loadUser()">Another One</button>
+			<button class="col-2 ms-3 btn btn-outline-danger" @click="clearUser()">Clear All</button>
+		</div>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">First Name</th>
+					<th scope="col">Last Name</th>
+					<th scope="col">emial</th>
+					<th scope="col">gender</th>
+					<th scope="col">Location</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="user in users" :key="user.id">
+					<th scope="row">{{ user.id }}</th>
+					<td>{{ user.first_name }}</td>
+					<td>{{ user.last_name }}</td>
+					<td>{{ user.email }}</td>
+					<td>{{ user.gender }}</td>
+					<td>{{ user.address.city }} - {{ user.address.state }} / {{ user.address.country }}</td>
+				</tr>
+			</tbody>
 		</table>
 	</div>
 </template>
