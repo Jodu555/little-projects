@@ -15,8 +15,9 @@
 					<th scope="col">Avatar</th>
 					<th scope="col">First Name</th>
 					<th scope="col">Last Name</th>
-					<th scope="col">emial</th>
-					<th scope="col">gender</th>
+					<th scope="col">Age</th>
+					<th scope="col">E-Mail</th>
+					<th scope="col">Gender</th>
 					<th scope="col">Location</th>
 					<th scope="col">Actions</th>
 				</tr>
@@ -27,6 +28,7 @@
 					<td><img :src="user.picture.medium" alt="Avatar" class="img-thumbnail" /></td>
 					<td>{{ user.name.first }}</td>
 					<td>{{ user.name.last }}</td>
+					<td>{{ user.dob.age }}</td>
 					<td>{{ user.email }}</td>
 					<td>{{ user.gender }}</td>
 					<td>
