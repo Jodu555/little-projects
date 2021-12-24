@@ -14,6 +14,9 @@ export default createStore({
     },
     addUser(state, user) {
       state.users.push(user);
+    },
+    clearUser(state) {
+      state.users = [];
     }
   },
   actions: {

@@ -14,19 +14,22 @@
 		</tr>
 		<br />
 		<button @click="loadUser()">Another One</button>
+		<button @click="clearUser()">Clear All</button>
 	</table>
 </template>
 
 <script>
-import { mapGetters, mapActions, mapState } from 'vuex';
+import { mapMutations, mapActions, mapState } from 'vuex';
 export default {
 	created() {
 		console.log(123, this);
-		this.$store.dispatch('loadUser');
+		this.loadUser();
+		// this.$store.dispatch('loadUser');
 	},
 	computed: mapState(['users']),
 	methods: {
 		...mapActions(['loadUser']),
+		...mapMutations(['clearUser']),
 	},
 };
 </script>
