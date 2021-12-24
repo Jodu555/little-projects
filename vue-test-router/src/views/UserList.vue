@@ -18,6 +18,7 @@
 					<th scope="col">emial</th>
 					<th scope="col">gender</th>
 					<th scope="col">Location</th>
+					<th scope="col">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -30,6 +31,9 @@
 					<td>{{ user.gender }}</td>
 					<td>
 						{{ user.location.city }} - {{ user.location.state }} / {{ user.location.country }}
+					</td>
+					<td>
+						<button class="btn btn-outline-danger" @click="removeUser(user.login.uuid)">Del</button>
 					</td>
 				</tr>
 			</tbody>
@@ -46,7 +50,7 @@ export default {
 	computed: mapState(['users']),
 	methods: {
 		...mapActions(['loadUser']),
-		...mapMutations(['clearUser']),
+		...mapMutations(['clearUser', 'removeUser']),
 	},
 };
 </script>

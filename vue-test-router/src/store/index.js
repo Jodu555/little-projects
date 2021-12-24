@@ -17,6 +17,9 @@ export default createStore({
     },
     clearUser(state) {
       state.users = [];
+    },
+    removeUser(state, uuid) {
+      state.users = state.users.filter(e => e.login.uuid !== uuid);
     }
   },
   actions: {
@@ -27,10 +30,6 @@ export default createStore({
       const response = await fetch('https://randomuser.me/api/?gender=' + gender);
       const json = await response.json();
       commit('addUser', json.results[0]);
-      // return new Promise(async (resolve, reject) => {
-
-      //   resolve();
-      // });
     },
   },
   modules: {
