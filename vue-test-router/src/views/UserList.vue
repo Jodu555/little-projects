@@ -1,7 +1,10 @@
 <template>
 	<div>
 		<div class="row text-center justify-content-center">
-			<button class="col-2 btn btn-outline-primary" @click="loadUser()">Another One</button>
+			<button class="col-2 btn btn-outline-primary" @click="loadUser('male')">Another Man</button>
+			<button class="col-2 ms-3 btn btn-outline-primary" @click="loadUser('female')">
+				Another Woman
+			</button>
 			<button class="col-2 ms-3 btn btn-outline-danger" @click="clearUser()">Clear All</button>
 		</div>
 
@@ -39,7 +42,6 @@ import { mapMutations, mapActions, mapState } from 'vuex';
 export default {
 	created() {
 		this.loadUser();
-		// this.$store.dispatch('loadUser');
 	},
 	computed: mapState(['users']),
 	methods: {
