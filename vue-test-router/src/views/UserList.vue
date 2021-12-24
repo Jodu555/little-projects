@@ -8,7 +8,7 @@
 			<button class="col-2 ms-3 btn btn-outline-danger" @click="clearUser()">Clear All</button>
 		</div>
 
-		<table class="table">
+		<table class="table table-hover">
 			<thead>
 				<tr>
 					<th scope="col">ID</th>
