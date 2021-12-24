@@ -9,6 +9,7 @@
 			<thead>
 				<tr>
 					<th scope="col">ID</th>
+					<th scope="col">Avatar</th>
 					<th scope="col">First Name</th>
 					<th scope="col">Last Name</th>
 					<th scope="col">emial</th>
@@ -17,13 +18,16 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="user in users" :key="user.id">
-					<th scope="row">{{ user.id }}</th>
-					<td>{{ user.first_name }}</td>
-					<td>{{ user.last_name }}</td>
+				<tr v-for="user in users" :key="user.login.uuid">
+					<th scope="row">{{ user.login.salt }}</th>
+					<td><img :src="user.picture.medium" alt="Avatar" class="img-thumbnail" /></td>
+					<td>{{ user.name.first }}</td>
+					<td>{{ user.name.last }}</td>
 					<td>{{ user.email }}</td>
 					<td>{{ user.gender }}</td>
-					<td>{{ user.address.city }} - {{ user.address.state }} / {{ user.address.country }}</td>
+					<td>
+						{{ user.location.city }} - {{ user.location.state }} / {{ user.location.country }}
+					</td>
 				</tr>
 			</tbody>
 		</table>
