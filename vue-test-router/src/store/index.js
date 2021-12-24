@@ -1,10 +1,7 @@
 import { createStore } from 'vuex'
 
-export default createStore({
-  state: {
-    count: 0,
-    users: []
-  },
+const counterModule = {
+  state: () => ({ count: 0, }),
   mutations: {
     increment(state) {
       state.count++
@@ -12,6 +9,20 @@ export default createStore({
     decrement(state) {
       state.count--
     },
+  },
+  actions: {
+    increment: ({ commit }) => commit('increment'),
+    decrement: ({ commit }) => commit('decrement'),
+  },
+  namespaced: true,
+}
+
+export default createStore({
+  state: {
+    users: []
+  },
+  mutations: {
+
     addUser(state, user) {
       state.users.push(user);
     },
@@ -23,8 +34,7 @@ export default createStore({
     }
   },
   actions: {
-    increment: ({ commit }) => commit('increment'),
-    decrement: ({ commit }) => commit('decrement'),
+
     loadUser: async ({ commit }, gender = '') => {
       // const response = await fetch('https://random-data-api.com/api/users/random_user');
       const response = await fetch('https://randomuser.me/api/?gender=' + gender);
@@ -33,5 +43,8 @@ export default createStore({
     },
   },
   modules: {
+    counter: counterModule,
   }
 })
+
+

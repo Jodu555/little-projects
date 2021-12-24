@@ -1,6 +1,6 @@
 <template>
 	<div class="home">
-		Counter: {{ $store.state.count }}
+		Counter: {{ $store.state.counter.count }}
 
 		<p>{{ message }}</p>
 		<input v-model="message" />
@@ -12,7 +12,7 @@
 <script>
 // @ is an alias to /src
 //import HelloWorld from '@/components/HelloWorld.vue';
-import { mapGetters, mapActions } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 export default {
 	name: 'Home',
@@ -21,9 +21,9 @@ export default {
 			message: '',
 		};
 	},
-	mounted() {},
+	computed: { ...mapState('counter', ['count']) },
 	methods: {
-		...mapActions(['increment', 'decrement', 'incrementIfOdd', 'incrementAsync']),
+		...mapActions('counter', ['increment', 'decrement', 'incrementIfOdd', 'incrementAsync']),
 	},
 };
 </script>
