@@ -14,7 +14,7 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="navbar-nav">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item">
 						<router-link class="nav-link" aria-current="page" to="/">Home</router-link>
 					</li>
@@ -28,9 +28,12 @@
 						<router-link class="nav-link" to="/users">Users</router-link>
 					</li>
 					<li v-if="userInfo.UUID" class="nav-item">
-						<router-link class="nav-link" to="/login">{{ userInfo }}</router-link>
+						<router-link class="nav-link" to="/login"></router-link>
 					</li>
 				</ul>
+				<div class="d-flex">
+					<h5>{{ userInfo.username }}</h5>
+				</div>
 			</div>
 		</div>
 	</nav>

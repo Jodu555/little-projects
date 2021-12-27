@@ -10,11 +10,18 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex';
 import Navbar from '@/components/Navbar';
 
 export default {
 	components: {
 		Navbar,
+	},
+	created() {
+		this.authenticate();
+	},
+	methods: {
+		...mapActions('auth', ['authenticate']),
 	},
 };
 </script>

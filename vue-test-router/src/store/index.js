@@ -55,10 +55,7 @@ const authenticationModule = {
       dispatch('authenticate');
     },
     authenticate: async ({ state, commit }) => {
-      console.log(123);
-      console.log(getCookie('auth-token'), state.authToken);
       if (getCookie('auth-token') || state.authToken) {
-        console.log(7676);
         const response = await fetch('http://localhost:3100/auth/info', {
           method: 'GET',
           headers: {
