@@ -55,6 +55,7 @@ const authenticationModule = {
       setCookie('auth-token', json.token);
       dispatch('authenticate');
     },
+
     async authenticate({ state, commit }) {
       const networking = this.$app.config.globalProperties.$networking;
       console.log(networking);

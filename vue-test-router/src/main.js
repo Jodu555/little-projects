@@ -5,7 +5,7 @@ import store from './store'
 
 const networkingPlugin = {
     install: (app, options) => {
-        app.config.globalProperties.$networking = new Networking({ API_URL: 'http://localhost:3100', auth_token: '' });
+        app.config.globalProperties.$networking = new Networking('http://localhost:3100', '');
     }
 }
 
