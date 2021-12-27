@@ -27,6 +27,9 @@
 					<li class="nav-item">
 						<router-link class="nav-link" to="/users">Users</router-link>
 					</li>
+					<li v-if="userInfo.UUID" class="nav-item">
+						<router-link class="nav-link" to="/login">{{ userInfo }}</router-link>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -34,7 +37,10 @@
 </template>
 
 <script>
-export default {};
+import { mapState } from 'vuex';
+export default {
+	computed: mapState('auth', ['userInfo']),
+};
 </script>
 
 <style></style>

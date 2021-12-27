@@ -52,11 +52,26 @@ const authenticationModule = {
       commit('setLoggedIn', true);
       commit('setAuthToken', json.token);
       setCookie('auth-token', json.token);
+      dispatch('authenticate');
     },
     authenticate: async ({ state, commit }) => {
+      console.log(123);
+      console.log(getCookie('auth-token'), state.authToken);
       if (getCookie('auth-token') || state.authToken) {
-        const response = await fetch('https://localhost:3100/auth/login');
+        console.log(7676);
+        const response = await fetch('http://localhost:3100/auth/info', {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+            'auth-token': getCookie('auth-token') || state.authToken,
+          }
+        });
         const json = await response.json();
+        commit('setUser', {
+          UUID: json.UUID,
+          username: json.username,
+          email: json.email,
+        });
       } else {
         state.loggedIn = false;
       }
