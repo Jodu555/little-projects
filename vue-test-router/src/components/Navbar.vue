@@ -31,12 +31,12 @@
 						<router-link class="nav-link" to="/login"></router-link>
 					</li>
 				</ul>
-				<ul class="navbar-nav">
+				<ul v-if="userInfo.UUID" class="navbar-nav">
 					<li class="nav-item" style="margin-right: 0.6vw">
 						<h5>{{ userInfo.username }}</h5>
 					</li>
 					<li class="nav-item">
-						<button class="btn btn-outline-danger">Logout</button>
+						<button @click="logout()" class="btn btn-outline-danger">Logout</button>
 					</li>
 				</ul>
 			</div>
@@ -45,9 +45,12 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 export default {
 	computed: mapState('auth', ['userInfo']),
+	methods: {
+		...mapActions('auth', ['logout']),
+	},
 };
 </script>
 

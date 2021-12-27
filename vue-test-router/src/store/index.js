@@ -36,6 +36,15 @@ const authenticationModule = {
     },
     setAuthToken(state, authToken) {
       state.authToken = authToken;
+    },
+    logout(state) {
+      state.loggedIn = false;
+      state.authToken = '';
+      state.userInfo = {
+        UUID: '',
+        username: '',
+        email: ''
+      };
     }
   },
   actions: {
@@ -71,6 +80,20 @@ const authenticationModule = {
         state.loggedIn = false;
       }
     },
+    async logout({ commit }) {
+      if (getCookie('auth-token') || state.authToken) {
+        this.$networking.auth_token = getCookie('auth-token') || state.authToken
+        const response = await this.$networking.get('/auth/logout');
+        if (response.success) {
+          commit('logout');
+        } else {
+          commit('setLoggedIn', false);
+          commit('setAuthToken', '');
+        }
+      } else {
+        state.loggedIn = false;
+      }
+    }
 
   },
   namespaced: true,
