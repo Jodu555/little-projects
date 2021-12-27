@@ -17,6 +17,45 @@ const counterModule = {
   namespaced: true,
 }
 
+const authenticationModule = {
+  state: {
+    loggedIn: false,
+    userInfo: {
+      UUID: '',
+      username: '',
+      email: '',
+    }
+  },
+  mutations: {
+    setUser(state, user) {
+      state.userInfo = user;
+    },
+    setLoggedIn(state, loggedIn) {
+      state.loggedIn = loggedIn;
+    }
+  },
+  actions: {
+    login: async ({ commit }, { username, password }) => {
+      const response = await fetch('http://localhost:3100/auth/login', {
+        method: 'POST',
+        headers: {
+          'application-type': 'application/json'
+        },
+        body: JSON.stringify({ username, password }),
+      });
+      const json = await response.json();
+    },
+    authenticate: async ({ state, commit }) => {
+      if (getCookie('auth-token')) {
+        const response = await fetch('https://localhost:3100/auth/login' + gender);
+        const json = await response.json();
+      } else {
+        state.loggedIn = false;
+      }
+    },
+  },
+}
+
 export default createStore({
   state: {
     users: []
