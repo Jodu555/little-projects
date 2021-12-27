@@ -40,6 +40,7 @@ const authenticationModule = {
   },
   actions: {
     login: async ({ commit, state, dispatch }, credentials) => {
+
       const response = await fetch('http://localhost:3100/auth/login', {
         method: 'POST',
         headers: {
@@ -54,7 +55,8 @@ const authenticationModule = {
       setCookie('auth-token', json.token);
       dispatch('authenticate');
     },
-    authenticate: async ({ state, commit }) => {
+    async authenticate({ state, commit }) {
+      console.log(this);
       if (getCookie('auth-token') || state.authToken) {
         const response = await fetch('http://localhost:3100/auth/info', {
           method: 'GET',
