@@ -56,16 +56,12 @@ const authenticationModule = {
       dispatch('authenticate');
     },
     async authenticate({ state, commit }) {
-      console.log(this);
+      const networking = this.$app.config.globalProperties.$networking;
+      console.log(networking);
       if (getCookie('auth-token') || state.authToken) {
-        const response = await fetch('http://localhost:3100/auth/info', {
-          method: 'GET',
-          headers: {
-            Accept: 'application/json',
-            'auth-token': getCookie('auth-token') || state.authToken,
-          }
-        });
-        const json = await response.json();
+        networking.auth_token = getCookie('auth-token') || state.authToken
+        console.log(networking);
+        const json = await networking.get('/auth/info');
         commit('setUser', {
           UUID: json.UUID,
           username: json.username,
