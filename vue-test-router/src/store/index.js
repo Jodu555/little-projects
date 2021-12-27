@@ -51,16 +51,15 @@ const authenticationModule = {
     async login({ commit, state, dispatch }, credentials) {
       const response = await this.$networking.post('/auth/login', JSON.stringify(credentials));
       if (response.success) {
+        const json = response.json;
         commit('setLoggedIn', true);
         commit('setAuthToken', json.token);
         setCookie('auth-token', json.token);
         dispatch('authenticate');
       } else {
-        commit('setLoggedIn', false);
-        commit('setAuthToken', '');
+        commit('logout');
       }
     },
-
     async authenticate({ state, commit }) {
       if (getCookie('auth-token') || state.authToken) {
         this.$networking.auth_token = getCookie('auth-token') || state.authToken
@@ -72,12 +71,12 @@ const authenticationModule = {
             username: json.username,
             email: json.email,
           });
+          this.$app.config.globalProperties.$router.push('/users')
         } else {
-          commit('setLoggedIn', false);
-          commit('setAuthToken', '');
+          commit('logout');
         }
       } else {
-        state.loggedIn = false;
+        commit('logout');
       }
     },
     async logout({ commit }) {
@@ -87,8 +86,7 @@ const authenticationModule = {
         if (response.success) {
           commit('logout');
         } else {
-          commit('setLoggedIn', false);
-          commit('setAuthToken', '');
+          commit('logout');
         }
       } else {
         state.loggedIn = false;
