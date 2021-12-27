@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<form @submit.prevent="login">
+		<form @submit.prevent="onLogin">
 			<div class="mb-3">
 				<label for="username" class="form-label">Username</label>
 				<input type="text" v-model="username" class="form-control" />
@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex';
+
 export default {
 	data() {
 		return {
@@ -23,8 +25,10 @@ export default {
 		};
 	},
 	methods: {
-		login() {
+		...mapActions('auth', ['login']),
+		onLogin() {
 			console.log(this.username, this.password);
+			this.login({ username: this.username, password: this.password });
 		},
 	},
 };

@@ -20,6 +20,7 @@ const counterModule = {
 const authenticationModule = {
   state: {
     loggedIn: false,
+    authToken: '',
     userInfo: {
       UUID: '',
       username: '',
@@ -32,28 +33,36 @@ const authenticationModule = {
     },
     setLoggedIn(state, loggedIn) {
       state.loggedIn = loggedIn;
+    },
+    setAuthToken(state, authToken) {
+      state.authToken = authToken;
     }
   },
   actions: {
-    login: async ({ commit }, { username, password }) => {
+    login: async ({ commit, state, dispatch }, credentials) => {
       const response = await fetch('http://localhost:3100/auth/login', {
         method: 'POST',
         headers: {
-          'application-type': 'application/json'
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify(credentials),
       });
       const json = await response.json();
+      commit('setLoggedIn', true);
+      commit('setAuthToken', json.token);
+      setCookie('auth-token', json.token);
     },
     authenticate: async ({ state, commit }) => {
-      if (getCookie('auth-token')) {
-        const response = await fetch('https://localhost:3100/auth/login' + gender);
+      if (getCookie('auth-token') || state.authToken) {
+        const response = await fetch('https://localhost:3100/auth/login');
         const json = await response.json();
       } else {
         state.loggedIn = false;
       }
     },
   },
+  namespaced: true,
 }
 
 export default createStore({
@@ -83,6 +92,7 @@ export default createStore({
   },
   modules: {
     counter: counterModule,
+    auth: authenticationModule,
   }
 })
 
