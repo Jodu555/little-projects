@@ -39,7 +39,7 @@ const authenticationModule = {
     }
   },
   actions: {
-    login: async ({ commit, state, dispatch }, credentials) => {
+    async login({ commit, state, dispatch }, credentials) {
       const response = await this.$networking.post('/auth/login', JSON.stringify(credentials));
       if (response.success) {
         commit('setLoggedIn', true);
@@ -71,6 +71,7 @@ const authenticationModule = {
         state.loggedIn = false;
       }
     },
+
   },
   namespaced: true,
 }

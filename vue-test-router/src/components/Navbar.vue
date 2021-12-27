@@ -14,7 +14,7 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<ul class="navbar-nav me-auto">
 					<li class="nav-item">
 						<router-link class="nav-link" aria-current="page" to="/">Home</router-link>
 					</li>
@@ -31,9 +31,14 @@
 						<router-link class="nav-link" to="/login"></router-link>
 					</li>
 				</ul>
-				<div class="d-flex">
-					<h5>{{ userInfo.username }}</h5>
-				</div>
+				<ul class="navbar-nav">
+					<li class="nav-item" style="margin-right: 0.6vw">
+						<h5>{{ userInfo.username }}</h5>
+					</li>
+					<li class="nav-item">
+						<button class="btn btn-outline-danger">Logout</button>
+					</li>
+				</ul>
 			</div>
 		</div>
 	</nav>
