@@ -40,34 +40,33 @@ const authenticationModule = {
   },
   actions: {
     login: async ({ commit, state, dispatch }, credentials) => {
-
-      const response = await fetch('http://localhost:3100/auth/login', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(credentials),
-      });
-      const json = await response.json();
-      commit('setLoggedIn', true);
-      commit('setAuthToken', json.token);
-      setCookie('auth-token', json.token);
-      dispatch('authenticate');
+      const response = await this.$networking.post('/auth/login', JSON.stringify(credentials));
+      if (response.success) {
+        commit('setLoggedIn', true);
+        commit('setAuthToken', json.token);
+        setCookie('auth-token', json.token);
+        dispatch('authenticate');
+      } else {
+        commit('setLoggedIn', false);
+        commit('setAuthToken', '');
+      }
     },
 
     async authenticate({ state, commit }) {
-      const networking = this.$app.config.globalProperties.$networking;
-      console.log(networking);
       if (getCookie('auth-token') || state.authToken) {
-        networking.auth_token = getCookie('auth-token') || state.authToken
-        console.log(networking);
-        const json = await networking.get('/auth/info');
-        commit('setUser', {
-          UUID: json.UUID,
-          username: json.username,
-          email: json.email,
-        });
+        this.$networking.auth_token = getCookie('auth-token') || state.authToken
+        const response = await this.$networking.get('/auth/info');
+        if (response.success) {
+          const json = response.json;
+          commit('setUser', {
+            UUID: json.UUID,
+            username: json.username,
+            email: json.email,
+          });
+        } else {
+          commit('setLoggedIn', false);
+          commit('setAuthToken', '');
+        }
       } else {
         state.loggedIn = false;
       }

@@ -10,7 +10,9 @@ const networkingPlugin = {
 }
 
 const app = createApp(App);
+app.use(networkingPlugin)
 
 store.$app = app;
+store.$networking = app.config.globalProperties.$networking;
 
-app.use(networkingPlugin).use(store).use(router).mount('#app');
+app.use(store).use(router).mount('#app');
