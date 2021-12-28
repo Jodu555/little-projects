@@ -35,7 +35,7 @@ export default {
                 const json = response.json;
                 commit('setLoggedIn', true);
                 commit('setAuthToken', json.token);
-                setCookie('auth-token', json.token);
+                setCookie('auth-token', json.token, 30);
                 dispatch('authenticate');
             } else {
                 commit('logout');

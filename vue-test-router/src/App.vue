@@ -32,9 +32,20 @@ export default {
 	min-height: 100vh;
 }
 
+.scale-enter-active,
+.scale-leave-active {
+	transition: all 0.5s ease;
+}
+
+.scale-enter-from,
+.scale-leave-to {
+	opacity: 0;
+	transform: scale(0.9);
+}
+
 .slide-enter-active,
 .slide-leave-active {
-	transition: all 0.75s ease-out;
+	transition: all 0.65s ease-out;
 }
 
 .slide-enter-to {
@@ -55,5 +66,27 @@ export default {
 .slide-leave-from {
 	position: absolute;
 	left: 0;
+}
+
+.scale-slide-enter-active,
+.scale-slide-leave-active {
+	position: absolute;
+	transition: all 0.85s ease;
+}
+
+.scale-slide-enter-from {
+	left: -100%;
+}
+
+.scale-slide-enter-to {
+	left: 0%;
+}
+
+.scale-slide-leave-from {
+	transform: scale(1);
+}
+
+.scale-slide-leave-to {
+	transform: scale(0.8);
 }
 </style>
