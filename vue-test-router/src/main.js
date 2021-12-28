@@ -3,6 +3,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+// import "bootstrap/dist/css/bootstrap.min.css"
+// import "bootstrap"
+
 const networkingPlugin = {
     install: (app, options) => {
         app.config.globalProperties.$networking = new Networking('http://localhost:3100', '');
