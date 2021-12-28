@@ -38,6 +38,7 @@ export default {
                 setCookie('auth-token', json.token, 30);
                 dispatch('authenticate');
             } else {
+                return response;
                 commit('logout');
             }
         },

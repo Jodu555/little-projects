@@ -1,5 +1,8 @@
 <template>
 	<div>
+		<div v-if="error" class="alert alert-danger">
+			{{ error }}
+		</div>
 		<form @submit.prevent="onLogin">
 			<div class="mb-3">
 				<label for="username" class="form-label">Username</label>
@@ -22,14 +25,16 @@ export default {
 		return {
 			username: '',
 			password: '',
+			error: null,
 		};
 	},
 	methods: {
 		...mapActions('auth', ['login']),
-		onLogin() {
-			this.login({ username: this.username, password: this.password });
+		async onLogin() {
+			const error = await this.login({ username: this.username, password: this.password });
 			this.username = '';
 			this.password = '';
+			this.error = error.error;
 		},
 	},
 };
