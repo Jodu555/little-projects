@@ -62,8 +62,9 @@ export default {
         },
         async logout({ commit }) {
             if (getCookie('auth-token') || state.authToken) {
-                this.$networking.auth_token = getCookie('auth-token') || state.authToken
+                this.$networking.auth_token = getCookie('auth-token') || state.authToken;
                 const response = await this.$networking.get('/auth/logout');
+                deleteCookie('auth-token');
                 if (response.success) {
                     commit('logout');
                 } else {
