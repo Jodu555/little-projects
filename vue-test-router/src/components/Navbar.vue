@@ -1,5 +1,12 @@
 <template>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	<nav
+		:class="[
+			'navbar',
+			'navbar-expand-lg',
+			dark ? 'navbar-dark' : 'navbar-light',
+			dark ? 'bg-dark' : 'bg-light',
+		]"
+	>
 		<div class="container-fluid">
 			<router-link class="navbar-brand" to="/">Navbar</router-link>
 			<button
@@ -47,7 +54,10 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 export default {
-	computed: mapState('auth', ['userInfo']),
+	computed: {
+		...mapState('auth', ['userInfo']),
+		...mapState('theme', ['dark']),
+	},
 	methods: {
 		...mapActions('auth', ['logout']),
 	},

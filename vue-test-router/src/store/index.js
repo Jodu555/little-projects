@@ -18,6 +18,7 @@ const counterModule = {
 }
 
 import authenticationModule from '@/store/auth.store.js';
+import themeModule from '@/store/theme.store.js';
 
 export default createStore({
   state: {
@@ -47,6 +48,7 @@ export default createStore({
   modules: {
     counter: counterModule,
     auth: authenticationModule,
+    theme: themeModule,
   }
 })
 
