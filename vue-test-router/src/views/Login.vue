@@ -27,8 +27,9 @@ export default {
 	methods: {
 		...mapActions('auth', ['login']),
 		onLogin() {
-			console.log(this.username, this.password);
 			this.login({ username: this.username, password: this.password });
+			this.username = '';
+			this.password = '';
 		},
 	},
 };
