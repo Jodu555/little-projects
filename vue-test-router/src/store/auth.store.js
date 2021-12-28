@@ -2,6 +2,7 @@ export default {
     state: {
         loggedIn: false,
         authToken: '',
+        error: null,
         userInfo: {
             UUID: '',
             username: '',
@@ -17,6 +18,9 @@ export default {
         },
         setAuthToken(state, authToken) {
             state.authToken = authToken;
+        },
+        setError(state, error) {
+            state.error = error;
         },
         logout(state) {
             state.loggedIn = false;
@@ -38,8 +42,7 @@ export default {
                 setCookie('auth-token', json.token, 30);
                 dispatch('authenticate');
             } else {
-                return response;
-                commit('logout');
+                commit('setError', response);
             }
         },
         async authenticate({ state, commit }) {
@@ -55,7 +58,7 @@ export default {
                     });
                     this.$app.config.globalProperties.$router.push('/users')
                 } else {
-                    commit('logout');
+                    commit('setError', response);
                 }
             } else {
                 commit('logout');
@@ -69,7 +72,7 @@ export default {
                 if (response.success) {
                     commit('logout');
                 } else {
-                    commit('logout');
+                    commit('setError', response);
                 }
             } else {
                 state.loggedIn = false;
