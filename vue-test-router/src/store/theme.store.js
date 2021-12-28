@@ -1,6 +1,6 @@
 export default {
     state: {
-        dark: false,
+        dark: true,
     },
     mutations: {
         setDark(state, dark) {

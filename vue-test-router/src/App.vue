@@ -1,5 +1,6 @@
 <template>
-	<div>
+	<div style="">
+		<Dark v-if="dark" />
 		<Navbar />
 		<router-view v-slot="{ Component }">
 			<transition name="slide">
@@ -12,13 +13,18 @@
 <script>
 import { mapActions, mapState } from 'vuex';
 import Navbar from '@/components/Navbar';
+import Dark from '@/components/Dark';
 
 export default {
 	components: {
 		Navbar,
+		Dark,
 	},
 	created() {
 		this.authenticate();
+	},
+	computed: {
+		...mapState('theme', ['dark']),
 	},
 	methods: {
 		...mapActions('auth', ['authenticate']),
@@ -27,7 +33,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import './styles/colorScheme';
+// @import '@/styles/colorScheme';
 @import '../node_modules/bootstrap/scss/bootstrap';
 
 .wrapper {
