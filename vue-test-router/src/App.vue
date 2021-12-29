@@ -46,75 +46,8 @@ body[data-theme='dark'] {
 		background-color: var(--bs-body-bg);
 	}
 }
-// Required
-@import '../node_modules/bootstrap/scss/functions';
-
-// Required
-@import '../node_modules/bootstrap/scss/variables';
-@import '../node_modules/bootstrap/scss/mixins';
 
 @import '../node_modules/bootstrap/scss/bootstrap';
 
-.wrapper {
-	width: 100%;
-	min-height: 100vh;
-}
-
-.scale-enter-active,
-.scale-leave-active {
-	transition: all 0.5s ease;
-}
-
-.scale-enter-from,
-.scale-leave-to {
-	opacity: 0;
-	transform: scale(0.9);
-}
-
-.slide-enter-active,
-.slide-leave-active {
-	transition: all 0.65s ease-out;
-}
-
-.slide-enter-to {
-	position: absolute;
-	right: 0;
-}
-
-.slide-enter-from {
-	position: absolute;
-	right: -100%;
-}
-
-.slide-leave-to {
-	position: absolute;
-	left: -100%;
-}
-
-.slide-leave-from {
-	position: absolute;
-	left: 0;
-}
-
-.scale-slide-enter-active,
-.scale-slide-leave-active {
-	position: absolute;
-	transition: all 0.85s ease;
-}
-
-.scale-slide-enter-from {
-	left: -100%;
-}
-
-.scale-slide-enter-to {
-	left: 0%;
-}
-
-.scale-slide-leave-from {
-	transform: scale(1);
-}
-
-.scale-slide-leave-to {
-	transform: scale(0.8);
-}
+@import '@/styles/sliders';
 </style>
