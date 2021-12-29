@@ -1,6 +1,5 @@
 <template>
-	<div style="">
-		<Dark v-if="dark" />
+	<div :class="dark ? 'dark' : ''">
 		<Navbar />
 		<router-view v-slot="{ Component }">
 			<transition name="slide">
@@ -13,15 +12,14 @@
 <script>
 import { mapActions, mapState } from 'vuex';
 import Navbar from '@/components/Navbar';
-import Dark from '@/components/Dark';
 
 export default {
 	components: {
 		Navbar,
-		Dark,
 	},
 	created() {
 		this.authenticate();
+		document.body.setAttribute('data-theme', this.dark ? 'dark' : 'light');
 	},
 	computed: {
 		...mapState('theme', ['dark']),
@@ -33,8 +31,36 @@ export default {
 </script>
 
 <style lang="scss">
-// @import '@/styles/colorScheme';
+// $cs-body-bg: #1c2938;
+// $cs-body-color: #e5e9f2;
+// $cs-secondary: #c0ccda;
+body[data-theme='dark'] {
+	--bs-body-bg: #1c2938;
+	--bs-body-color: #e5e9f2;
+	--bs-secondary: #c0ccda;
+	*,
+	*:before,
+	*:after {
+		color: var(--bs-body-color);
+	}
+}
+// Required
+@import '../node_modules/bootstrap/scss/functions';
+// @import '@/styles/colorScheme'; // If this is implemented then we have dark mode
+
+// $cs-custom-colors: (
+// 	'body-bg': $cs-body-bg,
+// 	'body-color': $cs-body-color,
+// 	'secondary': $cs-secondary,
+// );
+
+// Required
+@import '../node_modules/bootstrap/scss/variables';
+@import '../node_modules/bootstrap/scss/mixins';
+
 @import '../node_modules/bootstrap/scss/bootstrap';
+
+// $theme-colors: map-merge($theme-colors, $cs-custom-colors);
 
 .wrapper {
 	width: 100%;
