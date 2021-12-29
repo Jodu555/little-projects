@@ -34,9 +34,6 @@
 					<li class="nav-item">
 						<router-link class="nav-link" to="/users">Users</router-link>
 					</li>
-					<li v-if="userInfo.UUID" class="nav-item">
-						<router-link class="nav-link" to="/login"></router-link>
-					</li>
 				</ul>
 				<ul v-if="userInfo.UUID" class="navbar-nav">
 					<li class="nav-item" style="margin-right: 0.6vw">

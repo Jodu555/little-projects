@@ -43,24 +43,18 @@ body[data-theme='dark'] {
 	*:after {
 		color: var(--bs-body-color);
 	}
+	input {
+		background-color: var(--bs-body-bg);
+	}
 }
 // Required
 @import '../node_modules/bootstrap/scss/functions';
-// @import '@/styles/colorScheme'; // If this is implemented then we have dark mode
-
-// $cs-custom-colors: (
-// 	'body-bg': $cs-body-bg,
-// 	'body-color': $cs-body-color,
-// 	'secondary': $cs-secondary,
-// );
 
 // Required
 @import '../node_modules/bootstrap/scss/variables';
 @import '../node_modules/bootstrap/scss/mixins';
 
 @import '../node_modules/bootstrap/scss/bootstrap';
-
-// $theme-colors: map-merge($theme-colors, $cs-custom-colors);
 
 .wrapper {
 	width: 100%;
