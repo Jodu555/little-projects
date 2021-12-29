@@ -39,6 +39,9 @@
 					<li class="nav-item" style="margin-right: 0.6vw">
 						<h5>{{ userInfo.username }}</h5>
 					</li>
+					<li class="nav-item" style="margin-right: 0.6vw">
+						<button @click="setDark()" class="btn btn-outline-primary">Light / Dark</button>
+					</li>
 					<li class="nav-item">
 						<button @click="logout()" class="btn btn-outline-danger">Logout</button>
 					</li>
@@ -49,7 +52,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapMutations } from 'vuex';
 export default {
 	computed: {
 		...mapState('auth', ['userInfo']),
@@ -57,6 +60,7 @@ export default {
 	},
 	methods: {
 		...mapActions('auth', ['logout']),
+		...mapMutations('theme', ['setDark']),
 	},
 };
 </script>

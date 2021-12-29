@@ -1,10 +1,11 @@
 export default {
     state: {
-        dark: true,
+        dark: false,
     },
     mutations: {
         setDark(state, dark) {
             state.dark = dark ? dark : !state.dark;
+            document.body.setAttribute('data-theme', state.dark ? 'dark' : 'light');
         },
     },
     actions: {

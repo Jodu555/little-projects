@@ -19,7 +19,6 @@ export default {
 	},
 	created() {
 		this.authenticate();
-		document.body.setAttribute('data-theme', this.dark ? 'dark' : 'light');
 	},
 	computed: {
 		...mapState('theme', ['dark']),
