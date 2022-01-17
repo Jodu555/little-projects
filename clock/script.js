@@ -31,7 +31,6 @@ particlesJS.load('particles', 'particles.json', () => {
     btn.addEventListener('click', () => {
         const type = getCurrentTimeType();
         if (btn.id !== type.toLowerCase()) {
-            console.log(123);
             clock.style.opacity = '0%';
             setTimeout(() => {
                 clock.style.opacity = '100%';
