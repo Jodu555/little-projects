@@ -30,24 +30,11 @@ export default {
 </script>
 
 <style lang="scss">
-// $cs-body-bg: #1c2938;
-// $cs-body-color: #e5e9f2;
-// $cs-secondary: #c0ccda;
-body[data-theme='dark'] {
-	--bs-body-bg: #1c2938;
-	--bs-body-color: #e5e9f2;
-	--bs-secondary: #c0ccda;
-	*,
-	*:before,
-	*:after {
-		color: var(--bs-body-color);
-	}
-	input {
-		background-color: var(--bs-body-bg);
-	}
-}
-
+@import '../node_modules/bootswatch/dist/cyborg/variables';
 @import '../node_modules/bootstrap/scss/bootstrap';
+@import '../node_modules/bootswatch/dist/cyborg/bootswatch';
+
+// @import '../node_modules/bootstrap/scss/bootstrap';
 
 @import '@/styles/sliders';
 </style>
