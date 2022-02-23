@@ -1,12 +1,5 @@
 <template>
-	<nav
-		:class="[
-			'navbar',
-			'navbar-expand-lg',
-			dark ? 'navbar-dark' : 'navbar-light',
-			dark ? 'bg-dark' : 'bg-light',
-		]"
-	>
+	<nav>
 		<div class="container-fluid">
 			<router-link class="navbar-brand" to="/">Navbar</router-link>
 			<button
@@ -39,9 +32,6 @@
 					<li class="nav-item" style="margin-right: 0.6vw">
 						<h5>{{ userInfo.username }}</h5>
 					</li>
-					<li class="nav-item" style="margin-right: 0.6vw">
-						<button @click="setDark()" class="btn btn-outline-primary">Light / Dark</button>
-					</li>
 					<li class="nav-item">
 						<button @click="logout()" class="btn btn-outline-danger">Logout</button>
 					</li>
@@ -56,11 +46,9 @@ import { mapState, mapActions, mapMutations } from 'vuex';
 export default {
 	computed: {
 		...mapState('auth', ['userInfo']),
-		...mapState('theme', ['dark']),
 	},
 	methods: {
 		...mapActions('auth', ['logout']),
-		...mapMutations('theme', ['setDark']),
 	},
 };
 </script>
