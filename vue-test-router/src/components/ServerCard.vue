@@ -1,5 +1,4 @@
 <template>
-	<!-- <div class="card card-hover card-rad shadow-lg p-3 mb-5 rounded"> -->
 	<div
 		:class="[
 			'card',
