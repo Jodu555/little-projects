@@ -3,7 +3,7 @@
 		<h1>This is an about page</h1>
 		<div class="row">
 			<div class="col">
-				<div class="card">
+				<div class="card card-hover shadow-lg p-3 mb-5 rounded">
 					<div class="card-body">
 						<h5 class="card-title">
 							<h4><b>Silver</b></h4>
@@ -38,3 +38,14 @@
 		</div>
 	</div>
 </template>
+
+<style scoped>
+.card-hover {
+	transition: all 0.4s ease-in-out;
+}
+
+.card-hover:hover {
+	box-shadow: 0px 0px 20px 5px #141313ed !important;
+	transform: scale(1.1) translateY(30px);
+}
+</style>
