@@ -1,5 +1,16 @@
 <template>
-	<div class="card card-hover shadow-lg p-3 mb-5 rounded">
+	<!-- <div class="card card-hover card-rad shadow-lg p-3 mb-5 rounded"> -->
+	<div
+		:class="[
+			'card',
+			'card-hover',
+			{ 'card-rad': this.$props.type == '1' },
+			'shadow-lg',
+			'p-3',
+			'mb-5',
+			'rounded',
+		]"
+	>
 		<div class="card-body">
 			<h5 class="card-title">
 				<h4>
@@ -33,13 +44,16 @@
 
 <script>
 export default {
-	props: ['name', 'cores', 'memory', 'storage'],
+	props: ['name', 'cores', 'memory', 'storage', 'type'],
 };
 </script>
 
 <style scoped>
 .card-hover {
 	transition: all 0.5s ease-in-out;
+}
+
+.card-rad {
 	border-radius: 1.25rem !important;
 }
 

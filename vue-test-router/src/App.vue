@@ -21,7 +21,7 @@ export default {
 		this.authenticate();
 	},
 	computed: {
-		...mapState('theme', ['dark']),
+		// ...mapState('theme', ['dark']),
 	},
 	methods: {
 		...mapActions('auth', ['authenticate']),
