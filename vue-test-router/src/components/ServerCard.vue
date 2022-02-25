@@ -33,7 +33,7 @@
 						</div>
 					</div>
 				</div>
-				<h5 class="mt-2" style="color: #adafae; margin-bottom: -9px; font-size: 1.9rem">
+				<h5 class="mt-3" style="color: #adafae; margin-bottom: -9px; font-size: 1.9rem">
 					<b>{{ cost }}€</b>
 				</h5>
 				<p style="color: #adafae; font-size: 0.9rem">&nbsp;&nbsp;&nbsp;pro Monat</p>
