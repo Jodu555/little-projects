@@ -1,23 +1,21 @@
-const heading = document.getElementById('actual');
+const btc = document.querySelector('#btc')
 
-let obj;
 async function loadData() {
-    await fetch('https://api.coindesk.com/v1/bpi/currentprice.json')
-        .then(res => res.json())
-        .then(data => obj = data)
+    const response = await fetch('https://api.coindesk.com/v1/bpi/currentprice.json')
+    const json = await response.json();
 
-    console.log(obj.bpi.EUR);
+    console.log(json.bpi.EUR);
 
-    var floatPrice = obj.bpi.EUR.rate;
+    var floatPrice = json.bpi.EUR.rate;
     var euro = floatPrice.split('.')[0];
     var cleanEuro = euro.replace(',', '.');
 
-
-    heading.innerHTML = "Aktuell: " + cleanEuro + " " + obj.bpi.EUR.symbol
+    console.log(btc);
+    btc.innerHTML = "BTC: " + cleanEuro + " " + json.bpi.EUR.symbol
 
 }
 
-setInterval(function() {
+setInterval(() => {
     loadData();
 }, 10000);
 
