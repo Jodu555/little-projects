@@ -30,13 +30,12 @@ export default {
 </script>
 
 <style lang="scss">
-$info: #0d6efd !default;
-
-@import '../node_modules/bootswatch/dist/cyborg/variables';
-@import '../node_modules/bootstrap/scss/bootstrap';
-@import '../node_modules/bootswatch/dist/cyborg/bootswatch';
+// @import '../node_modules/bootswatch/dist/cyborg/variables';
+// @import '../node_modules/bootstrap/scss/bootstrap';
+// @import '../node_modules/bootswatch/dist/cyborg/bootswatch';
 
 // @import '../node_modules/bootstrap/scss/bootstrap';
+@import '~bootstrap/scss/bootstrap';
 
-@import '@/styles/sliders';
+// @import '@/styles/sliders';
 </style>
