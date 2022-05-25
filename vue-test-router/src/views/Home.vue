@@ -1,5 +1,5 @@
 <template>
-	<div class="home">
+	<div v-auto-animate class="home">
 		Counter: {{ $store.state.counter.count }}
 
 		<p>{{ message }}</p>

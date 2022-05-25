@@ -22,7 +22,7 @@
 					<th scope="col">Actions</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody v-auto-animate>
 				<tr v-for="user in users" :key="user.login.uuid">
 					<th scope="row">{{ user.login.salt }}</th>
 					<td><img :src="user.picture.medium" alt="Avatar" class="img-thumbnail" /></td>
