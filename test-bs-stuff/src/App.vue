@@ -42,40 +42,14 @@
 			<p>plain text</p>
 			<div class="bg-light p-3 text-dark">bg-light</div>
 			<div class="bg-primary p-3 text-light">bg-primary</div>
-			<table class="table">
-				<thead>
-					<tr>
-						<th scope="col">#</th>
-						<th scope="col">First</th>
-						<th scope="col">Last</th>
-						<th scope="col">Handle</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<th scope="row">1</th>
-						<td>Mark</td>
-						<td>Otto</td>
-						<td>@mdo</td>
-					</tr>
-					<tr>
-						<th scope="row">2</th>
-						<td>Jacob</td>
-						<td>Thornton</td>
-						<td>@fat</td>
-					</tr>
-					<tr>
-						<th scope="row">3</th>
-						<td colspan="2">Larry the Bird</td>
-						<td>@twitter</td>
-					</tr>
-				</tbody>
-			</table>
+			<BSdataTable> </BSdataTable>
 		</div>
 	</div>
 </template>
 <script>
+import BSdataTable from './components/BSdataTable.vue';
 export default {
+	components: { BSdataTable },
 	methods: {
 		switchTheme() {
 			console.log(123);
@@ -89,7 +63,7 @@ export default {
 			[...document.querySelectorAll('nav.navbar')].forEach((e) => {
 				e.classList.toggle('bg-light', !out);
 				e.classList.toggle('bg-dark', out);
-				e.classList.toggle('text-white', out);
+				e.classList.toggle('navbar-dark', out);
 			});
 		},
 	},
