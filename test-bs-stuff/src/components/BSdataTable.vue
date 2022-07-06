@@ -4,26 +4,12 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th v-for="row in tableRowData" scope="col" @click="changeSort(row)">{{ row }}</th>
+					<th v-for="(row, i) in tableRowData" scope="col" @click="changeSort(i)">{{ row }}</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<th scope="row">1</th>
-					<td>Mark</td>
-					<td>Otto</td>
-					<td>@mdo</td>
-				</tr>
-				<tr>
-					<th scope="row">2</th>
-					<td>Jacob</td>
-					<td>Thornton</td>
-					<td>@fat</td>
-				</tr>
-				<tr>
-					<th scope="row">3</th>
-					<td colspan="2">Larry the Bird</td>
-					<td>@twitter</td>
+				<tr v-for="row in tableData">
+					<component v-for="(data, i) in row" :is="i == 0 ? 'th' : 'td'">{{ data }}</component>
 				</tr>
 			</tbody>
 		</table>
@@ -43,8 +29,8 @@ export default {
 		};
 	},
 	methods: {
-		changeSort(row) {
-			console.log('GOT CHANGE SORT', row);
+		changeSort(idx) {
+			console.log('GOT CHANGE SORT', idx);
 		},
 	},
 };
