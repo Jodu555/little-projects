@@ -133,6 +133,10 @@
 					</div>
 				</div>
 			</div>
+
+			<div class="py-5">
+				<h1 class="text-center">Twitch-Stream Downloader</h1>
+			</div>
 		</div>
 	</div>
 </template>

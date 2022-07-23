@@ -19,14 +19,31 @@
 export default {
 	data() {
 		return {
+			idx: 0,
 			sortState: [],
-			tableRowData: ['#', 'First', 'Last', 'Handle'],
+			tableRowData: ['#', 'Channel', 'Length', 'Size'],
 			tableData: [
-				['1', 'Mark', 'Otto', '@mdo'],
+				['1', 'Sintica', '30m15s', '1.5GB'],
 				['2', 'Jacob', 'Thornton', '@fat'],
 				['3', 'Larry', 'the Bird', '@twitter'],
 			],
 		};
+	},
+	mounted() {
+		setInterval(() => {
+			this.idx += 1;
+			this.tableData = [
+				[
+					'1',
+					'Sintica',
+					`${this.idx * 0.5}m${Math.round(this.idx / 10 + this.idx * 5)}s`,
+					`${this.idx * 0.5}GB`,
+				],
+				['2', 'Jacob', 'Thornton', '@fat'],
+				['3', 'Larry', 'the Bird', '@twitter'],
+			];
+			console.log(123);
+		}, 1000);
 	},
 	methods: {
 		changeSort(idx) {
