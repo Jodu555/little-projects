@@ -14,8 +14,9 @@
 	</div>
 </template>
 <script setup>
-import { reactive } from 'vue';
+import { reactive, watch, computed } from 'vue';
 import MultiSelect from '@/components/MultiSelect.vue';
+import { useExtendedWatch } from './composables/useExtendedWatch';
 
 const state = reactive({
 	playlists: [
@@ -26,9 +27,14 @@ const state = reactive({
 	],
 });
 
+useExtendedWatch(state.playlists, (newValue, oldValue) => {
+	console.log(`newValue`, newValue);
+	console.log(`oldValue`, oldValue);
+});
+
 const checkAll = (event) => {
 	const checked = Boolean(state.playlists.find((e) => !e.checked));
-	state.playlists = state.playlists.map((e) => ({ ...e, checked }));
+	state.playlists.forEach((e) => (e.checked = checked));
 };
 </script>
 <style lang=""></style>
