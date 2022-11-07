@@ -1,5 +1,5 @@
 <template>
-	<pre>{{ state }}</pre>
+	<pre>{{ props }}</pre>
 	<div class="btn-group">
 		<button
 			class="btn btn-secondary dropdown-toggle"
@@ -8,15 +8,15 @@
 			data-bs-auto-close="outside"
 			aria-expanded="false"
 		>
-			Playlists
+			<slot>Playlists:</slot>
 			<span v-for="sel in selectedPlaylists" class="badge bg-info mx-1">{{ sel.name }}</span>
 		</button>
-		<ul class="dropdown-menu">
+		<ul class="dropdown-menu scrollable">
 			<li @click="checkAll" class="px-5 dropdown-item form-check">
 				<label class="form-check-label nosel">Select All</label>
 			</li>
 			<li
-				v-for="playlist in state.playlists"
+				v-for="playlist in props.playlists"
 				@click="playlist.checked = !playlist.checked"
 				class="px-4 dropdown-item"
 			>
@@ -31,27 +31,19 @@
 </template>
 <script setup>
 import { computed, reactive } from 'vue';
-
-const state = reactive({
-	playlists: [
-		{ name: 'Watchlist', checked: false },
-		{ name: 'Aboniert', checked: false },
-		{ name: 'Some other', checked: false },
-		{ name: 'Random List', checked: false },
-	],
-});
+const props = defineProps(['playlists', 'checkAll']);
 
 const selectedPlaylists = computed(() => {
-	return state.playlists.filter((e) => e.checked);
+	return props.playlists.filter((e) => e.checked);
 });
-
-function checkAll(event) {
-	const checked = Boolean(state.playlists.find((e) => !e.checked));
-	state.playlists = state.playlists.map((e) => ({ ...e, checked }));
-}
 </script>
 <style>
 .nosel {
 	user-select: none;
+}
+.scrollable {
+	max-height: 20rem;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 </style>
