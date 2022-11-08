@@ -5,7 +5,8 @@
 		</header>
 
 		<main class="container mt-4">
-			<MultiSelect :playlists="state.playlists" :checkAll="checkAll" />
+			<!-- <MultiSelect :playlists="state.playlists" :checkAll="checkAll" /> -->
+			<!-- next test Sortable List -->
 		</main>
 
 		<footer>
