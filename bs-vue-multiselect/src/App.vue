@@ -32,7 +32,7 @@ useExtendedWatch(state.playlists, (newValue, oldValue) => {
 	console.log(`oldValue`, oldValue);
 });
 
-const checkAll = (event) => {
+const checkAll = () => {
 	const checked = Boolean(state.playlists.find((e) => !e.checked));
 	state.playlists.forEach((e) => (e.checked = checked));
 };
