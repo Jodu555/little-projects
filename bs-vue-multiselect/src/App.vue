@@ -35,13 +35,16 @@
 				}"
 				v-model="list"
 				v-bind="dragOptions"
+				:move="move"
 				@start="drag = true"
 				@end="drag = false"
+				@change="update"
 				item-key="order"
 			>
 				<template #item="{ element }">
 					<li class="list-group-item">
-						{{ element.name }} <span class="badge bg-info mx-2">{{ element.order }}</span>
+						{{ element.name }}
+						<span class="badge bg-info mx-2">{{ element.order }} - {{ element.index }}</span>
 					</li>
 				</template>
 			</draggable>
@@ -55,40 +58,55 @@
 	</div>
 </template>
 
-<script>
-const message = [
-	'vue.draggable',
-	'draggable',
-	'component',
-	'for',
-	'vue.js 2.0',
-	'based',
-	'on',
-	'Sortablejs',
-];
-export default {
-	components: {
-		draggable,
-	},
-	data() {
-		return {
-			list: message.map((name, index) => {
-				return { name, order: index + 1 };
-			}),
-			drag: false,
-		};
-	},
-	computed: {
-		dragOptions() {
-			return {
-				animation: 200,
-				group: 'description',
-				disabled: false,
-				ghostClass: 'ghost',
-			};
-		},
-	},
+<script setup>
+import { reactive, computed, ref, watch } from 'vue';
+import draggable from 'vuedraggable';
+import { useExtendedWatch } from './composables/useExtendedWatch';
+
+const state = reactive({
+	playlists: [
+		{ name: 'Watchlist', checked: false },
+		{ name: 'Aboniert', checked: false },
+		{ name: 'Some other', checked: false },
+		{ name: 'Random List', checked: false },
+	],
+});
+
+useExtendedWatch(state.playlists, (newValue, oldValue) => {
+	console.log(`newValue`, newValue);
+	console.log(`oldValue`, oldValue);
+});
+
+const checkAll = () => {
+	const checked = Boolean(state.playlists.find((e) => !e.checked));
+	state.playlists.forEach((e) => (e.checked = checked));
 };
+
+const list = reactive(
+	['vue.draggable', 'draggable', 'component', 'for', 'vue.js 2.0', 'based', 'on', 'Sortablejs'].map(
+		(name, index) => {
+			return { name, order: index + 1 };
+		}
+	)
+);
+const drag = ref(false);
+
+const update = (...args) => {
+	console.log('update', args);
+};
+
+const move = (evt, orgevt) => {
+	console.log('move', evt, orgevt);
+};
+
+const dragOptions = computed(() => {
+	return {
+		animation: 200,
+		group: 'description',
+		disabled: false,
+		ghostClass: 'ghost',
+	};
+});
 </script>
 
 <style>
