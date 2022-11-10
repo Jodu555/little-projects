@@ -65,6 +65,13 @@
 								<button
 									type="button"
 									@click="element.edited = false"
+									class="btn btn-outline-danger mx-2"
+								>
+									Cancel
+								</button>
+								<button
+									type="button"
+									@click="element.edited = false"
 									class="btn btn-outline-success"
 								>
 									Save
