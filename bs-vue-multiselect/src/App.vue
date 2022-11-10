@@ -33,24 +33,23 @@
 					tag: 'ul',
 					name: !drag ? 'flip-list' : null,
 				}"
-				v-model="list"
+				:list="state.list"
 				v-bind="dragOptions"
-				:move="move"
 				@start="drag = true"
 				@end="drag = false"
-				@change="update"
+				@change="change"
 				item-key="order"
 			>
 				<template #item="{ element }">
 					<li class="list-group-item">
 						{{ element.name }}
-						<span class="badge bg-info mx-2">{{ element.order }} - {{ element.index }}</span>
+						<span class="badge bg-info mx-2">{{ element.order }}</span>
 					</li>
 				</template>
 			</draggable>
 
 			<div class="list-group col-md-3">
-				<pre>{{ list }}</pre>
+				<pre>{{ state.list }}</pre>
 			</div>
 		</main>
 
@@ -59,7 +58,7 @@
 </template>
 
 <script setup>
-import { reactive, computed, ref, watch } from 'vue';
+import { reactive, computed, ref, watch, watchEffect } from 'vue';
 import draggable from 'vuedraggable';
 import { useExtendedWatch } from './composables/useExtendedWatch';
 
@@ -70,6 +69,17 @@ const state = reactive({
 		{ name: 'Some other', checked: false },
 		{ name: 'Random List', checked: false },
 	],
+	list: [
+		'More Than a Married Couple, But Not Lovers',
+		'Re:ZERO - Starting Life in Another World',
+		'Blue Lock',
+		'Call of the Night',
+		'In Another World With My Smartphone',
+		'Don’t Toy With Me, Miss Nagatoro',
+		'To Love-Ru',
+	].map((name, index) => {
+		return { name, order: index + 1 };
+	}),
 });
 
 useExtendedWatch(state.playlists, (newValue, oldValue) => {
@@ -81,22 +91,13 @@ const checkAll = () => {
 	const checked = Boolean(state.playlists.find((e) => !e.checked));
 	state.playlists.forEach((e) => (e.checked = checked));
 };
-
-const list = reactive(
-	['vue.draggable', 'draggable', 'component', 'for', 'vue.js 2.0', 'based', 'on', 'Sortablejs'].map(
-		(name, index) => {
-			return { name, order: index + 1 };
-		}
-	)
-);
 const drag = ref(false);
 
-const update = (...args) => {
-	console.log('update', args);
-};
-
-const move = (evt, orgevt) => {
-	console.log('move', evt, orgevt);
+const change = (event) => {
+	state.list = state.list.map((name, index) => {
+		return { ...name, order: index + 1 };
+	});
+	//Here we can save the state to the database
 };
 
 const dragOptions = computed(() => {
@@ -110,9 +111,6 @@ const dragOptions = computed(() => {
 </script>
 
 <style>
-.button {
-	margin-top: 35px;
-}
 .flip-list-move {
 	transition: transform 0.5s;
 }
@@ -123,13 +121,7 @@ const dragOptions = computed(() => {
 	opacity: 0.5;
 	background: #c8ebfb;
 }
-.list-group {
-	min-height: 20px;
-}
 .list-group-item {
 	cursor: move;
-}
-.list-group-item i {
-	cursor: pointer;
 }
 </style>
