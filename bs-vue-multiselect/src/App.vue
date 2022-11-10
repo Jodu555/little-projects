@@ -44,6 +44,41 @@
 					<li class="list-group-item">
 						{{ element.name }}
 						<span class="badge bg-info mx-2">{{ element.order }}</span>
+						<div v-if="element.edited">
+							<div class="row text-center mt-2 mb-2 align-items-center">
+								<div class="col-2">
+									<label for="name" class="form-label">Name:</label>
+								</div>
+								<div class="col-5">
+									<input type="text" class="form-control" id="name" :value="element.name" />
+								</div>
+							</div>
+							<div class="row text-center align-items-center">
+								<div class="col-2">
+									<label for="url" class="form-label">Aniworld-URL:</label>
+								</div>
+								<div class="col-5">
+									<input type="text" class="form-control" id="url" :value="element.url" />
+								</div>
+							</div>
+							<div class="d-flex justify-content-end">
+								<button
+									type="button"
+									@click="element.edited = false"
+									class="btn btn-outline-success"
+								>
+									Save
+								</button>
+							</div>
+						</div>
+						<button
+							v-else
+							type="button"
+							@click="element.edited = true"
+							class="btn btn-outline-primary"
+						>
+							Edit
+						</button>
 					</li>
 				</template>
 			</draggable>
@@ -78,7 +113,7 @@ const state = reactive({
 		'Don’t Toy With Me, Miss Nagatoro',
 		'To Love-Ru',
 	].map((name, index) => {
-		return { name, order: index + 1 };
+		return { name, edited: false, url: '', order: index + 1 };
 	}),
 });
 
