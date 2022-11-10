@@ -28,10 +28,9 @@
 
 			<draggable
 				class="list-group"
-				tag="transition-group"
+				tag="ul"
 				:component-data="{
 					tag: 'ul',
-					type: 'transition-group',
 					name: !drag ? 'flip-list' : null,
 				}"
 				v-model="list"
@@ -57,7 +56,6 @@
 </template>
 
 <script>
-import draggable from 'vuedraggable';
 const message = [
 	'vue.draggable',
 	'draggable',
