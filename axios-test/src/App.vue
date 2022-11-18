@@ -13,7 +13,12 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import useFetch from '@/utils/useFetch';
-const { loading, error, data: todo, reload, statistics } = useFetch(true).get('todos');
+const { loading, error, data: todo, reload, statistics } = useFetch(false).get('todos');
+
+onMounted(async () => {
+	await reload();
+	console.log(todo.value);
+});
 </script>
 
 <style scoped></style>
