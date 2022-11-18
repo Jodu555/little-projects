@@ -1,4 +1,4 @@
-import { computed, onMounted, ref, watch } from 'vue';
+import { onMounted, ref } from 'vue';
 import networking from './networking';
 
 export default function useFetch(immediate = true) {
@@ -7,10 +7,11 @@ export default function useFetch(immediate = true) {
 		const error = ref(false);
 		const data = ref({});
 		const statistics = ref({});
-		if (immediate)
+		if (immediate) {
 			onMounted(async () => {
 				load();
 			});
+		}
 		const load = async () => {
 			loading.value = true;
 			error.value = false;
@@ -18,7 +19,6 @@ export default function useFetch(immediate = true) {
 				const response = await networking[method](url, body);
 				data.value = response.data;
 				statistics.value = response.customData;
-				console.log(`response`, response);
 				loading.value = false;
 			} catch (e) {
 				loading.value = false;
