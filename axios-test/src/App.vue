@@ -4,9 +4,8 @@
 
 <script setup>
 import { onMounted } from 'vue';
-import networking from './utils/networking';
+import networking from '@/utils/networking';
 onMounted(async () => {
-	console.log(`the component is now mounted.`);
 	const data = await networking.get('todos/1');
 	console.log(data);
 });
