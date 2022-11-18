@@ -15,7 +15,9 @@ import { onMounted, ref } from 'vue';
 import networking from '@/utils/networking';
 import useFetch from '@/utils/useFetch';
 
-const { loading, error, data: todo, reload, statistics } = useFetch('get', 'todos');
+// const { loading, error, data: todo, reload, statistics } = useFetch('get', 'todos');
+
+const { loading, error, data: todo, reload, statistics } = useFetch(false).get('todos');
 
 onMounted(async () => {
 	// const response = await networking.get('todos/1');
