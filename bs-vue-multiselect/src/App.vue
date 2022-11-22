@@ -24,7 +24,7 @@
 		</header>
 
 		<main class="container mt-4">
-			<!-- <MultiSelect :playlists="state.playlists" :checkAll="checkAll" /> -->
+			<MultiSelect :playlists="state.playlists" :checkAll="checkAll" />
 
 			<draggable
 				class="list-group"
@@ -83,6 +83,7 @@
 <script setup>
 import { reactive, computed, ref, watch, watchEffect } from 'vue';
 import draggable from 'vuedraggable';
+import MultiSelect from './components/MultiSelect.vue';
 import { useExtendedWatch } from './composables/useExtendedWatch';
 
 const state = reactive({
