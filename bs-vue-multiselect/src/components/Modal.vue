@@ -1,5 +1,13 @@
 <template>
-	<div class="modal fade" :id="id" tabindex="-1" aria-labelledby="" aria-hidden="true" ref="modalEle">
+	<div
+		class="modal fade"
+		v-on="{ 'hide.bs.modal': () => changeShow(false), 'show.bs.modal': () => changeShow(true) }"
+		:id="id"
+		tabindex="-1"
+		aria-labelledby=""
+		aria-hidden="true"
+		ref="modalElement"
+	>
 		<div class="modal-dialog" :class="`modal-${size}`">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -21,7 +29,7 @@
 	</div>
 </template>
 <script setup>
-import { onMounted, onUnmounted, ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { Modal } from 'bootstrap';
 const props = defineProps({
 	id: {
@@ -40,41 +48,12 @@ const props = defineProps({
 	},
 });
 const emit = defineEmits(['update:show']);
-let modalEle = ref(null);
+let modalElement = ref(null);
 let thisModalObj = null;
 
-// const value = computed({
-// 	get() {
-// 		return props.modelValue;
-// 	},
-// 	set(value) {
-// 		emit('update:show', value);
-// 	},
-// });
-
 onMounted(() => {
-	thisModalObj = new Modal(modalEle.value);
-	modalEle.value.addEventListener('hide.bs.modal', onHide);
-	modalEle.value.addEventListener('show.bs.modal', onShow);
+	thisModalObj = new Modal(modalElement.value);
 });
-
-onUnmounted(() => {
-	if (modalEle.value) {
-		modalEle.value.removeEventListener('hide.bs.modal', onHide);
-		modalEle.value.removeEventListener('show.bs.modal', onShow);
-	}
-});
-
-const onHide = () => {
-	console.log('onHide');
-	// props.handleClose();
-	changeShow(false);
-};
-
-const onShow = () => {
-	console.log('onShow');
-	changeShow(true);
-};
 
 const changeShow = (v) => {
 	emit('update:show', v);
@@ -87,11 +66,4 @@ watch(
 		!newX && thisModalObj.hide();
 	}
 );
-
-// function _show() {
-// 	thisModalObj.show();
-// }
-
-// defineExpose({ show: _show });
 </script>
-<style lang=""></style>
