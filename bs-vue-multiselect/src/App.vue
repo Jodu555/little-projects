@@ -24,7 +24,7 @@
 		</header>
 
 		<main class="container mt-4">
-			<!-- <MultiSelect :playlists="state.playlists" :checkAll="checkAll" /> -->
+			<MultiSelect :playlists="state.playlists" :checkAll="checkAll" />
 
 			<Modal title="Model title goes here" :show="show" :handleClose="() => (show = false)" ref="thisModal">
 				<template #body>This should be in the body</template>
@@ -91,6 +91,7 @@
 import { reactive, computed, ref, watch, watchEffect } from 'vue';
 import draggable from 'vuedraggable';
 import Modal from './components/Modal.vue';
+import MultiSelect from './components/MultiSelect.vue';
 import { useExtendedWatch } from './composables/useExtendedWatch';
 
 let show = ref(false);
