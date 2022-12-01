@@ -17,7 +17,7 @@
 					</button>
 					<div class="collapse navbar-collapse" id="collapsibleNavId">
 						<ul class="me-auto"></ul>
-						<a href="#" class="btn btn-outline-info">Profile</a>
+						<a href="#" @click="show = true" class="btn btn-outline-info">Profile</a>
 					</div>
 				</div>
 			</nav>
@@ -25,6 +25,13 @@
 
 		<main class="container mt-4">
 			<!-- <MultiSelect :playlists="state.playlists" :checkAll="checkAll" /> -->
+
+			<Modal title="Model title goes here" :show="show" :handleClose="() => (show = false)" ref="thisModal">
+				<template #body>This should be in the body</template>
+				<template #footer>
+					<button class="btn btn-primary">Extra footer button</button>
+				</template>
+			</Modal>
 
 			<draggable
 				class="list-group"
@@ -83,7 +90,10 @@
 <script setup>
 import { reactive, computed, ref, watch, watchEffect } from 'vue';
 import draggable from 'vuedraggable';
+import Modal from './components/Modal.vue';
 import { useExtendedWatch } from './composables/useExtendedWatch';
+
+let show = ref(false);
 
 const state = reactive({
 	playlists: [
@@ -133,7 +143,8 @@ const dragOptions = computed(() => {
 });
 </script>
 
-<style>
+<style lang="scss">
+@import '../node_modules/bootstrap/scss/bootstrap';
 .flip-list-move {
 	transition: transform 0.5s;
 }
