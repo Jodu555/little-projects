@@ -39,8 +39,18 @@ const props = defineProps({
 		default: '',
 	},
 });
+const emit = defineEmits(['update:show']);
 let modalEle = ref(null);
 let thisModalObj = null;
+
+// const value = computed({
+// 	get() {
+// 		return props.modelValue;
+// 	},
+// 	set(value) {
+// 		emit('update:show', value);
+// 	},
+// });
 
 onMounted(() => {
 	thisModalObj = new Modal(modalEle.value);
@@ -57,11 +67,17 @@ onUnmounted(() => {
 
 const onHide = () => {
 	console.log('onHide');
-	props.handleClose();
+	// props.handleClose();
+	changeShow(false);
 };
 
 const onShow = () => {
 	console.log('onShow');
+	changeShow(true);
+};
+
+const changeShow = (v) => {
+	emit('update:show', v);
 };
 
 watch(

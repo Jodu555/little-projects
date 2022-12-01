@@ -26,8 +26,8 @@
 		<main class="container mt-4">
 			<MultiSelect :playlists="state.playlists" :checkAll="checkAll" />
 
-			<Modal :show="show" :handleClose="() => (show = false)" ref="thisModal">
-				<template #title> Model title goes here <a href="#">LINK</a></template>
+			<Modal v-model:show="show" ref="thisModal">
+				<template #title> Full Featured Vue title here {{ state.playlists }} <a href="#">LINK</a></template>
 				<template #body>This should be in the body</template>
 			</Modal>
 
