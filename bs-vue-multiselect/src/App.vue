@@ -26,11 +26,9 @@
 		<main class="container mt-4">
 			<MultiSelect :playlists="state.playlists" :checkAll="checkAll" />
 
-			<Modal title="Model title goes here" :show="show" :handleClose="() => (show = false)" ref="thisModal">
+			<Modal :show="show" :handleClose="() => (show = false)" ref="thisModal">
+				<template #title> Model title goes here <a href="#">LINK</a></template>
 				<template #body>This should be in the body</template>
-				<template #footer>
-					<button class="btn btn-primary">Extra footer button</button>
-				</template>
 			</Modal>
 
 			<draggable
