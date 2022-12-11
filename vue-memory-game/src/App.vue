@@ -13,6 +13,7 @@ import { reactive, ref } from 'vue';
 
 const gameState = ref('Running');
 
+//TODO: Auto Generate these values, and maybe add an Restart Button
 const grid = reactive(
 	[
 		[1, 3, 4, 5],
