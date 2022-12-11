@@ -34,12 +34,27 @@ const reveal = (i, j) => {
 	console.log(selected[0].value, selected[1].value);
 
 	if (selected[0].value === selected[1].value) {
-		console.log('Came');
+		//Got Pair
 		selected.forEach((e) => (grid[e.i][e.j].finished = true));
+		if (checkIfWon()) {
+			gameState.value = 'Won';
+		}
+		selected.splice(0, selected.length);
 	} else {
-		selected.forEach((e) => (grid[e.i][e.j].revealed = false));
+		//Got None Pair
+		gameState.value = 'No Pair';
+		setTimeout(() => {
+			gameState.value = 'Running';
+			selected.forEach((e) => (grid[e.i][e.j].revealed = false));
+			selected.splice(0, selected.length);
+		}, 1 * 1000);
 	}
-	selected.splice(0, selected.length);
+};
+
+const checkIfWon = (_) => {
+	const out = grid.flat().filter((e) => !e.finished);
+	console.log(out, out.length);
+	return out.length <= 0;
 };
 </script>
 
