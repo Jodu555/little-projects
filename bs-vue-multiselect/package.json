@@ -13,11 +13,13 @@
     "@fortawesome/free-regular-svg-icons": "^6.2.0",
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@fortawesome/vue-fontawesome": "^3.0.1",
+    "bootstrap": "^5.2.3",
     "vue": "^3.2.25",
     "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.4",
+    "sass": "^1.56.1",
     "vite": "^2.9.15"
   }
 }
