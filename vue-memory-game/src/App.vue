@@ -27,11 +27,11 @@ const selected = reactive([]);
 const reveal = (i, j) => {
 	const cardObj = grid[i][j];
 	if (cardObj.finished || gameState.value == 'No Pair') return;
-	cardObj.revealed = !cardObj.revealed;
-	selected.push({ i, j, ...cardObj });
+	cardObj.revealed = true;
 	console.log(selected.length);
+	if (selected.length < 2 && selected?.[0]?.i == i && selected?.[0]?.j == j) return;
+	selected.push({ i, j, ...cardObj });
 	if (selected.length < 2) return;
-	//TODO: Prevent from clickig the same card twice
 
 	if (selected[0].value === selected[1].value) {
 		//Got Pair
