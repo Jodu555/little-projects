@@ -14,17 +14,44 @@ import { reactive, ref } from 'vue';
 const gameState = ref('Running');
 
 //TODO: Auto Generate these values, and maybe add an Restart Button
-const grid = reactive(
-	[
-		[1, 3, 4, 5],
-		[0, 2, 4, 3],
-		[1, 0, 2, 5],
-	].map((e) => e.map((x) => ({ value: x, revealed: false, finished: false })))
-);
+const grid = reactive([]);
+
+fillWithRandom();
 
 const selected = reactive([]);
 
-const reveal = (i, j) => {
+function getRandom(array, withidx) {
+	const randomIDX = Math.floor(Math.random() * array.length);
+	if (withidx) return { value: array[randomIDX], idx: randomIDX };
+	return array[randomIDX];
+}
+
+function fillWithRandom() {
+	const stuff = '0123456789abcdefghijklmnnopqrstuvwxyz'.split('');
+	const cols = 3,
+		rows = 4;
+	const values = cols * rows;
+
+	const pairs = values / 2;
+
+	const possibles = [];
+
+	for (let i = 0; i < pairs; i++) {
+		const value = getRandom(stuff);
+		possibles.push(value, value);
+	}
+
+	for (let i = 0; i < cols; i++) {
+		for (let j = 0; j < rows; j++) {
+			if (!Array.isArray(grid[i])) grid[i] = [];
+			const { value, idx } = getRandom(possibles, true);
+			grid[i][j] = { value, revealed: false, finished: false };
+			possibles.splice(idx, 1);
+		}
+	}
+}
+
+function reveal(i, j) {
 	const cardObj = grid[i][j];
 	if (cardObj.finished || gameState.value == 'No Pair') return;
 	cardObj.revealed = true;
@@ -49,13 +76,13 @@ const reveal = (i, j) => {
 			selected.splice(0, selected.length);
 		}, 1 * 1000);
 	}
-};
+}
 
-const checkIfWon = (_) => {
+function checkIfWon() {
 	const out = grid.flat().filter((e) => !e.finished);
 	console.log(out, out.length);
 	return out.length <= 0;
-};
+}
 </script>
 
 <style scoped>
