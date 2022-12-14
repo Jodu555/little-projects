@@ -17,6 +17,7 @@
 					</button>
 					<div class="collapse navbar-collapse" id="collapsibleNavId">
 						<ul class="me-auto"></ul>
+						<AutoComplete />
 						<a href="#" @click="show = true" class="btn btn-outline-info">Profile</a>
 					</div>
 				</div>
@@ -88,6 +89,7 @@
 <script setup>
 import { reactive, computed, ref, watch, watchEffect } from 'vue';
 import draggable from 'vuedraggable';
+import AutoComplete from './components/AutoComplete.vue';
 import Modal from './components/Modal.vue';
 import MultiSelect from './components/MultiSelect.vue';
 import { useExtendedWatch } from './composables/useExtendedWatch';
