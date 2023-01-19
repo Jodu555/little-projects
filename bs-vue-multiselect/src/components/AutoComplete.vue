@@ -7,27 +7,30 @@
 			@keydown="keydown"
 			type="text"
 			class="form-control me-3 dropdown-toggle"
-			placeholder="Search for a series..."
+			:placeholder="options.placeholder || ''"
 			style="width: 18rem"
 			autocomplete="off"
 			data-bs-toggle="dropdown"
+			data-bs-display="static"
 		/>
-		<div ref="dropdownMenuRef" v-show="recommendations.length >= 1" class="dropdown-menu" style="margin: 0px">
+		<ul ref="dropdownMenuRef" :id="id" v-show="recommendations.length >= 1" class="dropdown-menu" style="margin: 0px">
 			<button v-for="recommendation in recommendations" @click="select(recommendation)" type="button" class="dropdown-item">
 				<span v-for="value in recommendation.values" :class="{ 'text-primary': value.h }">
 					{{ value.value }}
 				</span>
 			</button>
-		</div>
+		</ul>
 	</div>
 </template>
 <script setup>
 import { onMounted, ref } from 'vue';
 import { Dropdown } from 'bootstrap';
 
-const props = defineProps(['data', 'selectFn']);
+const props = defineProps(['options', 'data', 'selectFn']);
 
 const recommendations = ref([]);
+
+const id = ref(Math.ceil(Math.random() * 100000));
 
 const inputRef = ref(null);
 const dropdownMenuRef = ref(null);
@@ -42,8 +45,9 @@ function select({ properties: { ID, value } }) {
 }
 
 function input() {
+	console.log(inputRef);
 	dropdown.show();
-	const maximumItems = 5;
+	const maximumItems = props?.options?.maximumItems || 5;
 	const lookup = inputRef.value.value.toLowerCase();
 	if (lookup.trim() === '') {
 		recommendations.value = [];

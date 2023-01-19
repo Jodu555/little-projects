@@ -17,7 +17,7 @@
 					</button>
 					<div class="collapse navbar-collapse" id="collapsibleNavId">
 						<ul class="me-auto"></ul>
-						<AutoComplete :data="state.autocompleteSearch" :select-fn="autocompleteSearch" />
+						<AutoComplete :options="{ placeholder: 'Search for a series...' }" :data="state.autocompleteSearch" :select-fn="autocompleteSearch" />
 						<a href="#" @click="show = true" class="btn btn-outline-info">Profile</a>
 					</div>
 				</div>
@@ -25,10 +25,22 @@
 		</header>
 
 		<main class="container mt-4">
-			<MultiSelect :playlists="state.playlists" :checkAll="checkAll" />
+			<MultiSelect class="mb-4" :playlists="state.playlists" :checkAll="checkAll" />
 
-			<Modal v-model:show="show" ref="thisModal">
-				<template #title> Full Featured Vue title here {{ state.playlists }} <a href="#">LINK</a></template>
+			<AutoComplete
+				class="mb-5"
+				:options="{ placeholder: 'Select Series' }"
+				:data="state.autocompleteSearch"
+				:select-fn="
+					(ID) => {
+						selectedModalSeries = ID;
+						show = true;
+					}
+				"
+			/>
+
+			<Modal v-model:show="show">
+				<template #title> You Selected: {{ selectedModalSeries }}</template>
 				<template #body>This should be in the body</template>
 			</Modal>
 
@@ -96,6 +108,8 @@ import { useExtendedWatch } from './composables/useExtendedWatch';
 import axios from 'axios';
 
 let show = ref(false);
+
+let selectedModalSeries = ref(null);
 
 const state = reactive({
 	playlists: [
