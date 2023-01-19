@@ -17,7 +17,7 @@
 					</button>
 					<div class="collapse navbar-collapse" id="collapsibleNavId">
 						<ul class="me-auto"></ul>
-						<AutoComplete />
+						<AutoComplete :data="state.autocompleteSearch" />
 						<a href="#" @click="show = true" class="btn btn-outline-info">Profile</a>
 					</div>
 				</div>
@@ -87,12 +87,13 @@
 </template>
 
 <script setup>
-import { reactive, computed, ref, watch, watchEffect } from 'vue';
+import { reactive, computed, ref, watch, watchEffect, onMounted } from 'vue';
 import draggable from 'vuedraggable';
 import AutoComplete from './components/AutoComplete.vue';
 import Modal from './components/Modal.vue';
 import MultiSelect from './components/MultiSelect.vue';
 import { useExtendedWatch } from './composables/useExtendedWatch';
+import axios from 'axios';
 
 let show = ref(false);
 
@@ -114,6 +115,14 @@ const state = reactive({
 	].map((name, index) => {
 		return { name, edited: false, url: '', order: index + 1 };
 	}),
+	autocompleteSearch: [],
+});
+
+onMounted(async () => {
+	const res = await axios.get('http://cinema-api.jodu555.de/index/all?auth-token=SECR-DEV');
+	// console.log(res.data);
+	state.autocompleteSearch = res.data.map((x) => ({ value: x.title, ID: x.ID }));
+	// res.data.forEach((x) => data.push({ value: x.title, ID: x.ID }));
 });
 
 useExtendedWatch(state.playlists, (newValue, oldValue) => {

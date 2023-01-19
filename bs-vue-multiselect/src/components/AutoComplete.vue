@@ -13,7 +13,7 @@
 			data-bs-toggle="dropdown"
 		/>
 		<div ref="dropdownMenuRef" v-show="recommendations.length >= 1" class="dropdown-menu" style="margin: 0px">
-			<button v-for="recommendation in recommendations" type="button" class="dropdown-item">
+			<button v-for="recommendation in recommendations" @click="select(recommendation)" type="button" class="dropdown-item">
 				<span v-for="value in recommendation.values" :class="{ 'text-primary': value.h }">
 					{{ value.value }}
 				</span>
@@ -26,13 +26,14 @@ import { onMounted, ref, reactive } from 'vue';
 import { Dropdown } from 'bootstrap';
 import axios from 'axios';
 
-const data = reactive([]);
+// const data = reactive([]);
+const props = defineProps(['data']);
 
-(async () => {
-	const res = await axios.get('http://cinema-api.jodu555.de/index/all?auth-token=SECR-DEV');
-	console.log(res.data);
-	res.data.forEach((x) => data.push({ value: x.title, ID: x.ID }));
-})();
+// (async () => {
+// 	const res = await axios.get('http://cinema-api.jodu555.de/index/all?auth-token=SECR-DEV');
+// 	console.log(res.data);
+// 	res.data.forEach((x) => data.push({ value: x.title, ID: x.ID }));
+// })();
 
 const recommendations = ref([]);
 
@@ -43,6 +44,11 @@ onMounted(() => {
 	dropdown = new Dropdown(dropdownMenuRef.value);
 });
 
+function select({ properties: { ID, value } }) {
+	console.log('Selected ID', ID, 'with value', value);
+	// inputRef.value.value = value;
+}
+
 function input() {
 	dropdown.show();
 	const maximumItems = 5;
@@ -52,12 +58,15 @@ function input() {
 		return;
 	}
 
-	recommendations.value = data
+	console.log(props);
+
+	recommendations.value = props.data
 		.map((key) => {
 			const value = key.value;
 			const idx = removeDiacritics(value).toLowerCase().indexOf(removeDiacritics(lookup).toLowerCase());
 			if (idx >= 0) {
 				return {
+					properties: key,
 					taken: true,
 					values: [
 						{ value: value.substring(0, idx), h: false },
@@ -81,6 +90,7 @@ function keydown(e) {
 		return;
 	}
 	if (e.keyCode === 40) {
+		e.preventDefault();
 		dropdown._menu.children[0]?.focus({ preventScroll: true });
 		return;
 	}
