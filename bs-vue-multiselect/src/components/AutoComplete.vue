@@ -24,8 +24,15 @@
 <script setup>
 import { onMounted, ref, reactive } from 'vue';
 import { Dropdown } from 'bootstrap';
+import axios from 'axios';
 
-const data = reactive(['Hello', 'Hallo', 'Tasta', 'Test', 'Lorem', 'Ipsum', 'Dolor', 'Sit', 'Amet']);
+const data = reactive([]);
+
+(async () => {
+	const res = await axios.get('http://cinema-api.jodu555.de/index/all?auth-token=SECR-DEV');
+	console.log(res.data);
+	res.data.forEach((x) => data.push({ value: x.title, ID: x.ID }));
+})();
 
 const recommendations = ref([]);
 
@@ -35,8 +42,6 @@ let dropdown;
 onMounted(() => {
 	dropdown = new Dropdown(dropdownMenuRef.value);
 });
-
-function click(e) {}
 
 function input() {
 	dropdown.show();
@@ -49,14 +54,15 @@ function input() {
 
 	recommendations.value = data
 		.map((key) => {
-			const idx = removeDiacritics(key).toLowerCase().indexOf(removeDiacritics(lookup).toLowerCase());
+			const value = key.value;
+			const idx = removeDiacritics(value).toLowerCase().indexOf(removeDiacritics(lookup).toLowerCase());
 			if (idx >= 0) {
 				return {
 					taken: true,
 					values: [
-						{ value: key.substring(0, idx), h: false },
-						{ value: key.substring(idx, idx + lookup.length), h: true },
-						{ value: key.substring(idx + lookup.length, key.length), h: false },
+						{ value: value.substring(0, idx), h: false },
+						{ value: value.substring(idx, idx + lookup.length), h: true },
+						{ value: value.substring(idx + lookup.length, value.length), h: false },
 					],
 				};
 			} else {
