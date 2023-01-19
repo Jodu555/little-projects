@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<header>
-			<nav class="navbar navbar-expand-sm navbar-light bg-light">
+			<nav class="navbar navbar-expand-sm">
 				<div class="container">
 					<p class="navbar-brand">My Test Project for all my silly Ideas</p>
 					<button
@@ -23,21 +23,10 @@
 				</div>
 			</nav>
 		</header>
-
+		<!-- <AutoComplete :options="{ placeholder: 'Select Series' }" :data="state.autocompleteSearch" /> -->
+		<AutoComplete :options="{ placeholder: 'Search for a series...' }" :data="state.autocompleteSearch" :select-fn="autocompleteSearch" />
 		<main class="container mt-4">
 			<MultiSelect class="mb-4" :playlists="state.playlists" :checkAll="checkAll" />
-
-			<AutoComplete
-				class="mb-5"
-				:options="{ placeholder: 'Select Series' }"
-				:data="state.autocompleteSearch"
-				:select-fn="
-					(ID) => {
-						selectedModalSeries = ID;
-						show = true;
-					}
-				"
-			/>
 
 			<Modal v-model:show="show">
 				<template #title> You Selected: {{ selectedModalSeries }}</template>

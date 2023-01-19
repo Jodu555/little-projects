@@ -11,9 +11,8 @@
 			style="width: 18rem"
 			autocomplete="off"
 			data-bs-toggle="dropdown"
-			data-bs-display="static"
 		/>
-		<ul ref="dropdownMenuRef" :id="id" v-show="recommendations.length >= 1" class="dropdown-menu" style="margin: 0px">
+		<ul ref="dropdownMenuRef" :id="id" v-show="recommendations.length >= 1" class="dropdown-menu">
 			<button v-for="recommendation in recommendations" @click="select(recommendation)" type="button" class="dropdown-item">
 				<span v-for="value in recommendation.values" :class="{ 'text-primary': value.h }">
 					{{ value.value }}
@@ -23,7 +22,7 @@
 	</div>
 </template>
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, nextTick } from 'vue';
 import { Dropdown } from 'bootstrap';
 
 const props = defineProps(['options', 'data', 'selectFn']);
@@ -35,8 +34,9 @@ const id = ref(Math.ceil(Math.random() * 100000));
 const inputRef = ref(null);
 const dropdownMenuRef = ref(null);
 let dropdown;
+
 onMounted(() => {
-	dropdown = new Dropdown(dropdownMenuRef.value);
+	dropdown = new Dropdown(inputRef.value);
 });
 
 function select({ properties: { ID, value } }) {
@@ -44,8 +44,7 @@ function select({ properties: { ID, value } }) {
 	// inputRef.value.value = value;
 }
 
-function input() {
-	console.log(inputRef);
+async function input() {
 	dropdown.show();
 	const maximumItems = props?.options?.maximumItems || 5;
 	const lookup = inputRef.value.value.toLowerCase();
@@ -76,6 +75,13 @@ function input() {
 		})
 		.filter((x) => x.taken);
 	recommendations.value.splice(maximumItems, recommendations.value.length);
+
+	console.time('render');
+	await nextTick();
+	console.timeEnd('render');
+	console.log('Rendered');
+
+	dropdown.update();
 }
 
 function keydown(e) {
@@ -88,6 +94,7 @@ function keydown(e) {
 		dropdown._menu.children[0]?.focus({ preventScroll: true });
 		return;
 	}
+	dropdown.update();
 }
 
 function removeDiacritics(str) {
