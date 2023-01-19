@@ -22,18 +22,10 @@
 	</div>
 </template>
 <script setup>
-import { onMounted, ref, reactive } from 'vue';
+import { onMounted, ref } from 'vue';
 import { Dropdown } from 'bootstrap';
-import axios from 'axios';
 
-// const data = reactive([]);
-const props = defineProps(['data']);
-
-// (async () => {
-// 	const res = await axios.get('http://cinema-api.jodu555.de/index/all?auth-token=SECR-DEV');
-// 	console.log(res.data);
-// 	res.data.forEach((x) => data.push({ value: x.title, ID: x.ID }));
-// })();
+const props = defineProps(['data', 'selectFn']);
 
 const recommendations = ref([]);
 
@@ -45,7 +37,7 @@ onMounted(() => {
 });
 
 function select({ properties: { ID, value } }) {
-	console.log('Selected ID', ID, 'with value', value);
+	props.selectFn(ID, value);
 	// inputRef.value.value = value;
 }
 
@@ -57,8 +49,6 @@ function input() {
 		recommendations.value = [];
 		return;
 	}
-
-	console.log(props);
 
 	recommendations.value = props.data
 		.map((key) => {

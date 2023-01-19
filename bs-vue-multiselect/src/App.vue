@@ -17,7 +17,7 @@
 					</button>
 					<div class="collapse navbar-collapse" id="collapsibleNavId">
 						<ul class="me-auto"></ul>
-						<AutoComplete :data="state.autocompleteSearch" />
+						<AutoComplete :data="state.autocompleteSearch" :select-fn="autocompleteSearch" />
 						<a href="#" @click="show = true" class="btn btn-outline-info">Profile</a>
 					</div>
 				</div>
@@ -124,6 +124,10 @@ onMounted(async () => {
 	state.autocompleteSearch = res.data.map((x) => ({ value: x.title, ID: x.ID }));
 	// res.data.forEach((x) => data.push({ value: x.title, ID: x.ID }));
 });
+
+function autocompleteSearch(ID, value) {
+	console.log('Passed Through', ID, value);
+}
 
 useExtendedWatch(state.playlists, (newValue, oldValue) => {
 	console.log(`newValue`, newValue);
