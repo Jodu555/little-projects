@@ -23,6 +23,26 @@
 				</div>
 			</nav>
 		</header>
+		<div class="live-info">
+			<div class="card" style="width: 12rem">
+				<div class="card-body text-center">
+					<h5 class="card-title text-center">
+						<div class="spinner-grow text-danger" role="info">
+							<span class="visually-hidden">Live Indicator</span>
+						</div>
+					</h5>
+					<p class="card-text text-center">
+						<span> Active Sync Session... </span>
+						<br />
+						<span>You are the host</span>
+						<br />
+						<span class="text-muted">5 Participants</span>
+					</p>
+					<a href="#" class="btn btn-outline-warning me-2">Leave</a>
+					<a href="#" class="btn btn-outline-info">Manage</a>
+				</div>
+			</div>
+		</div>
 		<!-- <AutoComplete :options="{ placeholder: 'Select Series' }" :data="state.autocompleteSearch" /> -->
 		<AutoComplete :options="{ placeholder: 'Search for a series...' }" :data="state.autocompleteSearch" :select-fn="autocompleteSearch" />
 		<main class="container mt-4">
@@ -174,5 +194,11 @@ const dragOptions = computed(() => {
 }
 .list-group-item {
 	cursor: move;
+}
+
+.live-info {
+	position: sticky;
+	top: 0;
+	z-index: 100;
 }
 </style>
