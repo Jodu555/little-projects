@@ -43,10 +43,22 @@
 				</div>
 			</div>
 		</div>
+
 		<!-- <AutoComplete :options="{ placeholder: 'Select Series' }" :data="state.autocompleteSearch" /> -->
-		<AutoComplete :options="{ placeholder: 'Search for a series...' }" :data="state.autocompleteSearch" :select-fn="autocompleteSearch" />
 		<main class="container mt-4">
-			<MultiSelect class="mb-4" :playlists="state.playlists" :checkAll="checkAll" />
+			<AutoComplete
+				v-slot="{ properties }"
+				:options="{ placeholder: 'Search for a series...' }"
+				:data="state.autocompleteSearch"
+				:select-fn="autocompleteSearch"
+			>
+				<pre>{{ slotProps }}</pre>
+				<img
+					:src="`http://cinema-api.jodu555.de/images/${properties.ID}/cover.jpg?auth-token=87ff71c4-0e68-475b-b956-9f6e678ca0c6`"
+					style="width: 10%; height: auto; margin-right: 0.5rem"
+				/>
+			</AutoComplete>
+			<MultiSelect class="mt-4 mb-4" :playlists="state.playlists" :checkAll="checkAll" />
 
 			<Modal v-model:show="show">
 				<template #title> You Selected: {{ selectedModalSeries }}</template>

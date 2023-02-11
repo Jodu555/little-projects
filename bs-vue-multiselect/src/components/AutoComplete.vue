@@ -14,7 +14,8 @@
 		/>
 		<ul ref="dropdownMenuRef" :id="id" v-show="recommendations.length >= 1" class="dropdown-menu">
 			<button v-for="recommendation in recommendations" @click="select(recommendation)" type="button" class="dropdown-item">
-				<span v-for="value in recommendation.values" :class="{ 'text-primary': value.h }">
+				<slot :properties="recommendation.properties"></slot>
+				<span v-for="value in recommendation.values" :class="{ 'text-primary': value.h, 'autocomplete-span': true }">
 					{{ value.value }}
 				</span>
 			</button>
@@ -101,4 +102,8 @@ function removeDiacritics(str) {
 	return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 }
 </script>
-<style lang=""></style>
+<style>
+/* .autocomplete-span {
+	font-size: 2rem;
+} */
+</style>
