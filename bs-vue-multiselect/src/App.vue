@@ -52,9 +52,8 @@
 				:data="state.autocompleteSearch"
 				:select-fn="autocompleteSearch"
 			>
-				<pre>{{ slotProps }}</pre>
 				<img
-					:src="`http://cinema-api.jodu555.de/images/${properties.ID}/cover.jpg?auth-token=87ff71c4-0e68-475b-b956-9f6e678ca0c6`"
+					:src="`http://cinema-api.jodu555.de/images/${properties.ID}/cover.jpg?auth-token=SECR-DEV`"
 					style="width: 10%; height: auto; margin-right: 0.5rem"
 				/>
 			</AutoComplete>
@@ -116,12 +115,14 @@
 								<button type="button" @click="element.edited = false" class="btn btn-outline-success">Save</button>
 							</div>
 						</div>
-						<button v-else type="button" @click="element.edited = true" class="btn btn-outline-primary">Edit</button>
+						<button v-else type="button" @click="element.edited = true" class="btn btn-outline-primary">
+							<font-awesome-icon :icon="['fa-solid', 'fa-pen']" size="lg" />
+						</button>
 					</li>
 				</template>
 			</draggable>
 
-			<div class="list-group col-md-3">
+			<div class="mt-5">
 				<pre>{{ state.list }}</pre>
 			</div>
 		</main>
