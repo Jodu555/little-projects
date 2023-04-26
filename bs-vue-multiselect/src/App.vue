@@ -23,7 +23,7 @@
 				</div>
 			</nav>
 		</header>
-		<div class="live-info">
+		<!-- <div class="live-info">
 			<div class="card" style="width: 12rem">
 				<div class="card-body text-center">
 					<h5 class="card-title text-center">
@@ -42,7 +42,7 @@
 					<a href="#" class="btn btn-outline-info">Manage</a>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 		<!-- <AutoComplete :options="{ placeholder: 'Select Series' }" :data="state.autocompleteSearch" /> -->
 		<main class="container mt-4">
@@ -80,7 +80,7 @@
 				item-key="order"
 			>
 				<template #item="{ element }">
-					<li class="list-group-item">
+					<li class="list-group-item" v-auto-animate>
 						{{ element.name }}
 						<span class="badge bg-info mx-2">{{ element.order }}</span>
 						<div v-if="element.edited">
@@ -89,17 +89,28 @@
 									<label for="name" class="form-label">Name:</label>
 								</div>
 								<div class="col-7">
-									<input type="text" class="form-control" id="name" :value="element.name" />
+									<input type="text" class="form-control" id="name" v-model="element.name" />
+								</div>
+							</div>
+							<hr />
+							<h5>References</h5>
+							<div class="row text-center align-items-center mb-4">
+								<div class="col-2">
+									<label for="url" class="form-label">Aniworld:</label>
+								</div>
+								<div class="col-7">
+									<input type="text" class="form-control" id="url" v-model="element.references.aniworld" />
 								</div>
 							</div>
 							<div class="row text-center align-items-center">
 								<div class="col-2">
-									<label for="url" class="form-label">Aniworld-URL:</label>
+									<label for="url" class="form-label">Zoro:</label>
 								</div>
 								<div class="col-7">
-									<input type="text" class="form-control" id="url" :value="element.url" />
+									<input type="text" class="form-control" id="url" v-model="element.references.zoro" />
 								</div>
 							</div>
+
 							<div class="d-flex justify-content-end">
 								<button type="button" @click="element.edited = false" class="btn btn-outline-danger mx-2">Cancel</button>
 								<button type="button" @click="element.edited = false" class="btn btn-outline-success">Save</button>
@@ -148,7 +159,7 @@ const state = reactive({
 		'Don’t Toy With Me, Miss Nagatoro',
 		'To Love-Ru',
 	].map((name, index) => {
-		return { name, edited: false, url: '', order: index + 1 };
+		return { name, edited: false, references: { aniworld: '', zoro: '' }, order: index + 1 };
 	}),
 	autocompleteSearch: [],
 });
@@ -165,6 +176,10 @@ function autocompleteSearch(ID, value) {
 }
 
 useExtendedWatch(state.playlists, (newValue, oldValue) => {
+	console.log(`newValue`, newValue);
+	console.log(`oldValue`, oldValue);
+});
+useExtendedWatch(state.list, (newValue, oldValue) => {
 	console.log(`newValue`, newValue);
 	console.log(`oldValue`, oldValue);
 });

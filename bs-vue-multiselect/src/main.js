@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-
+import { autoAnimatePlugin } from '@formkit/auto-animate/vue';
 import 'bootstrap';
 
 const app = createApp(App);
@@ -13,5 +13,7 @@ import { faSquare, faSquareCheck } from '@fortawesome/free-regular-svg-icons';
 library.add(faSquare, faSquareCheck); // regular
 
 app.component('font-awesome-icon', FontAwesomeIcon);
+
+app.use(autoAnimatePlugin);
 
 app.mount('#app');
