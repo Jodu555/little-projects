@@ -80,8 +80,19 @@
 			>
 				<template #item="{ element }">
 					<li class="list-group-item" v-auto-animate>
-						{{ element.name }}
-						<span class="badge bg-info mx-2">{{ element.order }}</span>
+						<div class="d-flex justify-content-between">
+							<div>
+								{{ element.name }}
+								<span class="badge bg-info mx-2">{{ element.order }}</span>
+								<button v-if="!element.edited" type="button" @click="element.edited = true" class="btn btn-outline-primary">
+									<font-awesome-icon :icon="['fa-solid', 'fa-pen']" size="lg" />
+								</button>
+							</div>
+							<div>
+								<button v-if="element.edited" type="button" @click="element.edited = false" class="btn btn-close"></button>
+							</div>
+						</div>
+
 						<div v-if="element.edited">
 							<div class="row text-center mt-2 mb-2 align-items-center">
 								<div class="col-2">
@@ -89,6 +100,31 @@
 								</div>
 								<div class="col-7">
 									<input type="text" class="form-control" id="name" v-model="element.name" />
+								</div>
+							</div>
+							<div class="row text-center mt-2 mb-2 align-items-center">
+								<div class="col-2">
+									<label for="name" class="form-label">Kategorie:</label>
+								</div>
+								<div class="col-3">
+									<div class="btn-group" style="width: 100%">
+										<button
+											class="btn btn-outline-secondary dropdown-toggle"
+											type="button"
+											id="triggerId"
+											data-bs-toggle="dropdown"
+											aria-haspopup="true"
+											aria-expanded="false"
+											style="width: 100%"
+										>
+											Kategorie
+										</button>
+										<div class="dropdown-menu dropdown-menu-start" style="width: 100%" aria-labelledby="triggerId">
+											<a class="dropdown-item" href="#">Aniworld</a>
+											<a class="dropdown-item" href="#">STO</a>
+											<a class="dropdown-item" href="#">K-Drama</a>
+										</div>
+									</div>
 								</div>
 							</div>
 							<hr />
@@ -115,9 +151,6 @@
 								<button type="button" @click="element.edited = false" class="btn btn-outline-success">Save</button>
 							</div>
 						</div>
-						<button v-else type="button" @click="element.edited = true" class="btn btn-outline-primary">
-							<font-awesome-icon :icon="['fa-solid', 'fa-pen']" size="lg" />
-						</button>
 					</li>
 				</template>
 			</draggable>
