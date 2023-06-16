@@ -229,10 +229,21 @@ const change = (event) => {
 	});
 	console.log('Change');
 	//Here we can save the state to the database
+	pushTodoListUpdate();
 };
 
 const save = () => {
 	console.log('Save');
+	pushTodoListUpdate();
+};
+
+const pushTodoListUpdate = () => {
+	const saveList = JSON.parse(JSON.stringify(state.list)).map((x) => {
+		delete x.edited;
+		return x;
+	});
+	// this.$socket.emit('todoListUpdate', saveList);
+	console.log(saveList);
 };
 
 const dragOptions = computed(() => {
