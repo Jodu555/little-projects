@@ -82,7 +82,8 @@
 					<li class="list-group-item" v-auto-animate>
 						<div class="d-flex justify-content-between">
 							<div>
-								{{ element.name }}
+								{{ element.name }} -
+								{{ element.categorie }}
 								<span class="badge bg-info mx-2">{{ element.order }}</span>
 								<button v-if="!element.edited" type="button" @click="element.edited = true" class="btn btn-outline-primary">
 									<font-awesome-icon :icon="['fa-solid', 'fa-pen']" size="lg" />
@@ -107,24 +108,12 @@
 									<label for="name" class="form-label">Kategorie:</label>
 								</div>
 								<div class="col-3">
-									<div class="btn-group" style="width: 100%">
-										<button
-											class="btn btn-outline-secondary dropdown-toggle"
-											type="button"
-											id="triggerId"
-											data-bs-toggle="dropdown"
-											aria-haspopup="true"
-											aria-expanded="false"
-											style="width: 100%"
-										>
-											Kategorie
-										</button>
-										<div class="dropdown-menu dropdown-menu-start" style="width: 100%" aria-labelledby="triggerId">
-											<a class="dropdown-item" href="#">Aniworld</a>
-											<a class="dropdown-item" href="#">STO</a>
-											<a class="dropdown-item" href="#">K-Drama</a>
-										</div>
-									</div>
+									<select v-model="element.categorie" style="width: 100%" class="form-select" aria-label="Default select example">
+										<option selected>Kategorie</option>
+										<option>Aniworld</option>
+										<option>STO</option>
+										<option>K-Drama</option>
+									</select>
 								</div>
 							</div>
 							<hr />
@@ -148,7 +137,16 @@
 
 							<div class="d-flex justify-content-end">
 								<button type="button" @click="element.edited = false" class="btn btn-outline-danger mx-2">Cancel</button>
-								<button type="button" @click="element.edited = false" class="btn btn-outline-success">Save</button>
+								<button
+									type="button"
+									@click="
+										element.edited = false;
+										save();
+									"
+									class="btn btn-outline-success"
+								>
+									Save
+								</button>
 							</div>
 						</div>
 					</li>
@@ -159,8 +157,6 @@
 				<pre>{{ state.list }}</pre>
 			</div>
 		</main>
-
-		<footer></footer>
 	</div>
 </template>
 
@@ -192,11 +188,14 @@ const state = reactive({
 		'In Another World With My Smartphone',
 		'Don’t Toy With Me, Miss Nagatoro',
 		'To Love-Ru',
+		'',
 	].map((name, index) => {
-		return { name, edited: false, references: { aniworld: '', zoro: '' }, order: index + 1 };
+		return { name, edited: false, categorie: '', references: { aniworld: '', zoro: '' }, order: index + 1 };
 	}),
 	autocompleteSearch: [],
 });
+
+// {"name":"Call of the Night","edited":false,"categorie":"","references":{"aniworld":"","zoro":""},"order":1}
 
 onMounted(async () => {
 	const res = await axios.get('http://cinema-api.jodu555.de/index/all?auth-token=SECR-DEV');
@@ -209,14 +208,14 @@ function autocompleteSearch(ID, value) {
 	console.log('Passed Through', ID, value);
 }
 
-useExtendedWatch(state.playlists, (newValue, oldValue) => {
-	console.log(`newValue`, newValue);
-	console.log(`oldValue`, oldValue);
-});
-useExtendedWatch(state.list, (newValue, oldValue) => {
-	console.log(`newValue`, newValue);
-	console.log(`oldValue`, oldValue);
-});
+// useExtendedWatch(state.playlists, (newValue, oldValue) => {
+// 	console.log(`newValue`, newValue);
+// 	console.log(`oldValue`, oldValue);
+// });
+// useExtendedWatch(state.list, (newValue, oldValue) => {
+// 	console.log(`newValue`, newValue);
+// 	console.log(`oldValue`, oldValue);
+// });
 
 const checkAll = () => {
 	const checked = Boolean(state.playlists.find((e) => !e.checked));
@@ -228,7 +227,12 @@ const change = (event) => {
 	state.list = state.list.map((name, index) => {
 		return { ...name, order: index + 1 };
 	});
+	console.log('Change');
 	//Here we can save the state to the database
+};
+
+const save = () => {
+	console.log('Save');
 };
 
 const dragOptions = computed(() => {
