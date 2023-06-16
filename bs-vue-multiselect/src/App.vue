@@ -63,6 +63,8 @@
 				<template #title> You Selected: {{ selectedModalSeries }}</template>
 				<template #body>This should be in the body</template>
 			</Modal>
+			<br />
+			<button class="btn btn-outline-primary" @click="addEmptyItem">Add Item</button>
 
 			<draggable
 				class="list-group"
@@ -180,18 +182,19 @@ const state = reactive({
 		{ name: 'Some other', checked: false },
 		{ name: 'Random List', checked: false },
 	],
-	list: [
-		'More Than a Married Couple, But Not Lovers',
-		'Re:ZERO - Starting Life in Another World',
-		'Blue Lock',
-		'Call of the Night',
-		'In Another World With My Smartphone',
-		'Don’t Toy With Me, Miss Nagatoro',
-		'To Love-Ru',
-		'',
-	].map((name, index) => {
-		return { name, edited: false, categorie: '', references: { aniworld: '', zoro: '' }, order: index + 1 };
-	}),
+	list: [],
+	// list: [
+	// 	'More Than a Married Couple, But Not Lovers',
+	// 	'Re:ZERO - Starting Life in Another World',
+	// 	'Blue Lock',
+	// 	'Call of the Night',
+	// 	'In Another World With My Smartphone',
+	// 	'Don’t Toy With Me, Miss Nagatoro',
+	// 	'To Love-Ru',
+	// 	'',
+	// ].map((name, index) => {
+	// 	return { name, edited: false, categorie: '', references: { aniworld: '', zoro: '' }, order: index + 1 };
+	// }),
 	autocompleteSearch: [],
 });
 
@@ -202,6 +205,10 @@ onMounted(async () => {
 	// console.log(res.data);
 	state.autocompleteSearch = res.data.map((x) => ({ value: x.title, ID: x.ID }));
 	// res.data.forEach((x) => data.push({ value: x.title, ID: x.ID }));
+
+	const todos = await axios.get('http://localhost:3200/todo');
+
+	state.list = todos.data;
 });
 
 function autocompleteSearch(ID, value) {
@@ -232,18 +239,25 @@ const change = (event) => {
 	pushTodoListUpdate();
 };
 
+const addEmptyItem = () => {
+	const item = { name: '', edited: false, categorie: '', references: { aniworld: '', zoro: '' }, order: -1 };
+	state.list.push(item);
+	pushTodoListUpdate();
+};
+
 const save = () => {
 	console.log('Save');
 	pushTodoListUpdate();
 };
 
-const pushTodoListUpdate = () => {
+const pushTodoListUpdate = async () => {
 	const saveList = JSON.parse(JSON.stringify(state.list)).map((x) => {
 		delete x.edited;
 		return x;
 	});
 	// this.$socket.emit('todoListUpdate', saveList);
 	console.log(saveList);
+	await axios.post('http://localhost:3200/todo', saveList);
 };
 
 const dragOptions = computed(() => {
