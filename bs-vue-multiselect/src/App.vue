@@ -111,15 +111,28 @@
 								</div>
 								<div class="col-3">
 									<select v-model="element.categorie" style="width: 100%" class="form-select" aria-label="Default select example">
-										<option selected>Kategorie</option>
+										<option selected disabled>Kategorie</option>
 										<option>Aniworld</option>
 										<option>STO</option>
 										<option>K-Drama</option>
 									</select>
 								</div>
 							</div>
+							<!-- <div class="row text-center mt-2 mb-2 align-items-center">
+								<div class="col-2">
+									<label for="name" class="form-label">From:</label>
+								</div>
+								<div class="col-3">
+									<select v-model="element.from" style="width: 100%" class="form-select" aria-label="Default select example">
+										<option selected disabled>From</option>
+										<option value="UUID">Jodu555</option>
+										<option value="UUID">Svenja</option>
+									</select>
+								</div>
+							</div> -->
 							<hr />
 							<h5>References</h5>
+							<h6>Anime</h6>
 							<div class="row text-center align-items-center mb-4">
 								<div class="col-2">
 									<label for="url" class="form-label">Aniworld:</label>
@@ -134,6 +147,16 @@
 								</div>
 								<div class="col-7">
 									<input type="text" class="form-control" id="url" v-model="element.references.zoro" />
+								</div>
+							</div>
+							<hr />
+							<h6>Other</h6>
+							<div class="row text-center align-items-center mb-4">
+								<div class="col-2">
+									<label for="url" class="form-label">STO:</label>
+								</div>
+								<div class="col-7">
+									<input type="text" class="form-control" id="url" v-model="element.references.sto" />
 								</div>
 							</div>
 
