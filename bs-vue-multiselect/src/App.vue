@@ -78,7 +78,7 @@
 				@start="drag = true"
 				@end="drag = false"
 				@change="change"
-				item-key="order"
+				item-key="ID"
 			>
 				<template #item="{ element }">
 					<li class="list-group-item" v-auto-animate>
@@ -263,13 +263,14 @@ const change = (event) => {
 };
 
 const addEmptyItem = () => {
-	const item = { name: '', edited: false, categorie: '', references: { aniworld: '', zoro: '' }, order: -1 };
+	const ID = Math.round(Math.random() * 10 ** 6);
+	const item = { name: '', edited: false, categorie: '', references: { aniworld: '', zoro: '', sto: '' }, order: -1, ID };
 	state.list.push(item);
-	pushTodoListUpdate();
+	// pushTodoListUpdate();
+	change();
 };
 
 const save = () => {
-	console.log('Save');
 	pushTodoListUpdate();
 };
 
