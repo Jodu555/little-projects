@@ -23,7 +23,40 @@
 				</div>
 			</nav>
 		</header>
-		<!-- <div class="live-info">
+
+		<Modal size="xl" v-model:show="showSyncModal">
+			<template #title> Sync Room 74533 Manager</template>
+			<template #body>
+				<div class="table-responsive-md">
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">Username</th>
+								<th scope="col">Role</th>
+								<th scope="col">Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="">
+								<td scope="row">Jodu555</td>
+								<td>Viewer</td>
+								<td>
+									<button type="button" class="btn btn-primary me-3">Promote</button>
+									<button type="button" class="btn btn-danger">Kick</button>
+								</td>
+							</tr>
+							<tr class="">
+								<td scope="row">TRyFlow</td>
+								<td>Host</td>
+								<td>-</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</template>
+		</Modal>
+
+		<div class="live-info">
 			<div class="card" style="width: 12rem">
 				<div class="card-body text-center">
 					<h5 class="card-title text-center">
@@ -38,11 +71,10 @@
 						<br />
 						<span class="text-muted">5 Participants</span>
 					</p>
-					<a href="#" class="btn btn-outline-warning me-2">Leave</a>
-					<a href="#" class="btn btn-outline-info">Manage</a>
+					<button @click="showSyncModal = true" class="btn btn-outline-info">Manage</button>
 				</div>
 			</div>
-		</div> -->
+		</div>
 
 		<!-- <AutoComplete :options="{ placeholder: 'Select Series' }" :data="state.autocompleteSearch" /> -->
 		<main class="container mt-4">
@@ -195,6 +227,7 @@ import { useExtendedWatch } from './composables/useExtendedWatch';
 import axios from 'axios';
 
 let show = ref(false);
+let showSyncModal = ref(false);
 
 let selectedModalSeries = ref(null);
 

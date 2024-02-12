@@ -103,7 +103,7 @@ function removeDiacritics(str) {
 }
 </script>
 <style>
-/* .autocomplete-span {
+.autocomplete-span {
 	font-size: 2rem;
-} */
+}
 </style>
