@@ -214,6 +214,8 @@
 				<pre>{{ state.list }}</pre>
 			</div>
 		</main>
+		<VideoCarousel v-if="list?.foryou?.length > 1" class="pb-4 pt-10" category="For You" :wrapAround="true" :list="list.foryou" />
+		<VideoCarousel v-if="list?.newest?.length > 1" class="pb-4 pt-10" category="Newest" :wrapAround="false" :list="list.newest" />
 	</div>
 </template>
 
@@ -223,6 +225,7 @@ import draggable from 'vuedraggable';
 import AutoComplete from './components/AutoComplete.vue';
 import Modal from './components/Modal.vue';
 import MultiSelect from './components/MultiSelect.vue';
+import VideoCarousel from './components/VideoCarousel.vue';
 import { useExtendedWatch } from './composables/useExtendedWatch';
 import axios from 'axios';
 
@@ -230,6 +233,11 @@ let show = ref(false);
 let showSyncModal = ref(false);
 
 let selectedModalSeries = ref(null);
+
+const list = reactive({
+	foryou: [],
+	newest: [],
+});
 
 const state = reactive({
 	playlists: [
@@ -262,9 +270,32 @@ onMounted(async () => {
 	state.autocompleteSearch = res.data.map((x) => ({ value: x.title, ID: x.ID }));
 	// res.data.forEach((x) => data.push({ value: x.title, ID: x.ID }));
 
-	const todos = await axios.get('http://localhost:3200/todo');
+	// const todos = await axios.get('http://localhost:3200/todo');
 
-	state.list = todos.data;
+	// state.list = todos.data;
+
+	const forYouItems = 20;
+	const newestItems = 15;
+
+	const token = 'b3fbb4a3-7868-4735-9ce0-765c147108d4';
+
+	const response = await axios.get(`http://cinema-api.jodu555.de/index?auth-token=${token}`);
+
+	const series = response.data
+		.filter((x) => x.categorie == 'Aniworld')
+		.map((x) => {
+			return {
+				ID: x.ID,
+				url: `http://cinema-api.jodu555.de/images/${x.ID}/cover.jpg?auth-token=${token}`,
+				title: x.title,
+				infos: x.infos,
+			};
+		});
+	list.foryou = series
+		.slice()
+		.sort((a, b) => 0.5 - Math.random())
+		.slice(0, forYouItems);
+	list.newest = series.reverse().slice(0, newestItems);
 });
 
 function autocompleteSearch(ID, value) {
