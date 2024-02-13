@@ -73,7 +73,14 @@ export default defineComponent({
 			</Slide>
 
 			<template #addons>
-				<Navigation />
+				<Navigation>
+					<template #prev>
+						<font-awesome-icon icon="fa-solid fa-chevron-left" size="2xl" />
+					</template>
+					<template #next>
+						<font-awesome-icon icon="fa-solid fa-chevron-right" size="2xl" beat />
+					</template>
+				</Navigation>
 				<Pagination />
 			</template>
 		</Carousel>
