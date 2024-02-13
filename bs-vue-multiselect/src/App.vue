@@ -283,14 +283,12 @@ onMounted(async () => {
 
 	const series = response.data
 		.filter((x) => x.categorie == 'Aniworld')
-		.map((x) => {
-			return {
-				ID: x.ID,
-				url: `http://cinema-api.jodu555.de/images/${x.ID}/cover.jpg?auth-token=${token}`,
-				title: x.title,
-				infos: x.infos,
-			};
-		});
+		.map((x) => ({
+			ID: x.ID,
+			url: `http://cinema-api.jodu555.de/images/${x.ID}/cover.jpg?auth-token=${token}`,
+			title: x.title,
+			infos: x.infos,
+		}));
 	list.foryou = series
 		.slice()
 		.sort((a, b) => 0.5 - Math.random())
