@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div style="overflow-x: hidden">
 		<header>
 			<nav class="navbar navbar-expand-sm">
 				<div class="container">
@@ -214,8 +214,14 @@
 				<pre>{{ state.list }}</pre>
 			</div>
 		</main>
-		<VideoCarousel v-if="list?.foryou?.length > 1" class="pb-4 pt-10" category="For You" :wrapAround="true" :list="list.foryou" />
-		<VideoCarousel v-if="list?.newest?.length > 1" class="pb-4 pt-10" category="Newest" :wrapAround="false" :list="list.newest" />
+		<div v-for="item of list">
+			{{ item.title }}
+			{{ item.data.length }}
+			{{ item.data.length > 1 }}
+			<VideoCarousel v-if="item.data.length > 1" class="pb-4 pt-10" :category="item.title" :wrapAround="true" :list="item.data" />
+		</div>
+		<!-- <VideoCarousel v-if="list?.foryou?.length > 1" class="pb-4 pt-10" category="For You" :wrapAround="true" :list="list.foryou" />
+		<VideoCarousel v-if="list?.newest?.length > 1" class="pb-4 pt-10" category="Newest" :wrapAround="false" :list="list.newest" /> -->
 	</div>
 </template>
 
@@ -234,10 +240,7 @@ let showSyncModal = ref(false);
 
 let selectedModalSeries = ref(null);
 
-const list = reactive({
-	foryou: [],
-	newest: [],
-});
+const list = reactive({});
 
 const state = reactive({
 	playlists: [
@@ -274,26 +277,33 @@ onMounted(async () => {
 
 	// state.list = todos.data;
 
-	const forYouItems = 20;
-	const newestItems = 15;
+	// const forYouItems = 20;
+	// const newestItems = 15;
 
-	const token = 'b3fbb4a3-7868-4735-9ce0-765c147108d4';
+	// const token = 'b3fbb4a3-7868-4735-9ce0-765c147108d4';
 
-	const response = await axios.get(`http://cinema-api.jodu555.de/index?auth-token=${token}`);
+	// const response = await axios.get(`http://cinema-api.jodu555.de/index?auth-token=${token}`);
 
-	const series = response.data
-		.filter((x) => x.categorie == 'Aniworld')
-		.map((x) => ({
-			ID: x.ID,
-			url: `http://cinema-api.jodu555.de/images/${x.ID}/cover.jpg?auth-token=${token}`,
-			title: x.title,
-			infos: x.infos,
-		}));
-	list.foryou = series
-		.slice()
-		.sort((a, b) => 0.5 - Math.random())
-		.slice(0, forYouItems);
-	list.newest = series.reverse().slice(0, newestItems);
+	// const series = response.data
+	// 	.filter((x) => x.categorie == 'Aniworld')
+	// 	.map((x) => ({
+	// 		ID: x.ID,
+	// 		url: `http://cinema-api.jodu555.de/images/${x.ID}/cover.jpg?auth-token=${token}`,
+	// 		title: x.title,
+	// 		infos: x.infos,
+	// 	}));
+	// list.foryou = series
+	// 	.slice()
+	// 	.sort((a, b) => 0.5 - Math.random())
+	// 	.slice(0, forYouItems);
+	// list.newest = series.reverse().slice(0, newestItems);
+
+	const response = await axios.get(`http://localhost:3100/index/index/recommendations?auth-token=SECR-DEV`);
+
+	Object.keys(response.data).forEach((k) => {
+		console.log(k, response.data[k].data);
+		list[k] = response.data[k];
+	});
 });
 
 function autocompleteSearch(ID, value) {
