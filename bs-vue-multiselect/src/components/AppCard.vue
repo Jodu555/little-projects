@@ -84,8 +84,10 @@ export default {
 		img {
 			// max-width: 20vw;
 			// min-width: 20vw;
-			max-width: 17rem;
-			min-width: 16rem;
+			max-width: 18rem;
+			min-width: 17rem;
+			// max-width: 17rem;
+			// min-width: 16rem;
 			min-height: 24rem;
 			max-height: 20rem;
 			width: 100%;

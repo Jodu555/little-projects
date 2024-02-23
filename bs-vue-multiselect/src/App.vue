@@ -215,9 +215,9 @@
 			</div>
 		</main>
 		<div v-for="item of list">
-			{{ item.title }}
+			<!-- {{ item.title }}
 			{{ item.data.length }}
-			{{ item.data.length > 1 }}
+			{{ item.data.length > 1 }} -->
 			<VideoCarousel v-if="item.data.length > 1" class="pb-4 pt-10" :category="item.title" :wrapAround="true" :list="item.data" />
 		</div>
 		<!-- <VideoCarousel v-if="list?.foryou?.length > 1" class="pb-4 pt-10" category="For You" :wrapAround="true" :list="list.foryou" />
@@ -268,7 +268,7 @@ const state = reactive({
 // {"name":"Call of the Night","edited":false,"categorie":"","references":{"aniworld":"","zoro":""},"order":1}
 
 onMounted(async () => {
-	const res = await axios.get('http://cinema-api.jodu555.de/index/all?auth-token=SECR-DEV');
+	const res = await axios.get('http://cinema-api.jodu555.de/index?auth-token=SECR-DEV');
 	// console.log(res.data);
 	state.autocompleteSearch = res.data.map((x) => ({ value: x.title, ID: x.ID }));
 	// res.data.forEach((x) => data.push({ value: x.title, ID: x.ID }));
@@ -302,7 +302,16 @@ onMounted(async () => {
 
 	Object.keys(response.data).forEach((k) => {
 		console.log(k, response.data[k].data);
-		list[k] = response.data[k];
+		// list[k] = response.data[k];
+
+		list[k] = {
+			title: response.data[k].title,
+			data: response.data[k].data.map((x) => {
+				const f = res.data.find((z) => z.ID == x);
+				f.url = `http://cinema-api.jodu555.de/images/${f.ID}/cover.jpg?auth-token=${'SECR-DEV'}`;
+				return f;
+			}),
+		};
 	});
 });
 
