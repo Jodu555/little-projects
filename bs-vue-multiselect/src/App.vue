@@ -1,3 +1,4 @@
+
 <template>
 	<div style="overflow-x: hidden">
 		<header>
@@ -298,7 +299,7 @@ onMounted(async () => {
 	// 	.slice(0, forYouItems);
 	// list.newest = series.reverse().slice(0, newestItems);
 
-	const response = await axios.get(`http://localhost:3100/index/index/recommendations?auth-token=SECR-DEV`);
+	const response = await axios.get(`http://localhost:3100/recommendation?auth-token=SECR-DEV`);
 
 	Object.keys(response.data).forEach((k) => {
 		console.log(k, response.data[k].data);
