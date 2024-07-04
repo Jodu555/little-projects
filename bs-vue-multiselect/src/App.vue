@@ -1,5 +1,6 @@
 <template>
-	<div style="overflow-x: hidden">
+	<Calender />
+	<div v-if="false" style="overflow-x: hidden">
 		<header>
 			<nav class="navbar navbar-expand-sm">
 				<div class="container">
@@ -210,12 +211,13 @@
 <script setup>
 import { reactive, computed, ref, watch, watchEffect, onMounted } from 'vue';
 import draggable from 'vuedraggable';
+import axios from 'axios';
 import AutoComplete from './components/AutoComplete.vue';
 import Modal from './components/Modal.vue';
 import MultiSelect from './components/MultiSelect.vue';
 import VideoCarousel from './components/VideoCarousel.vue';
+import Calender from './components/Calender.vue';
 import { useExtendedWatch } from './composables/useExtendedWatch';
-import axios from 'axios';
 
 let show = ref(false);
 let showSyncModal = ref(false);
