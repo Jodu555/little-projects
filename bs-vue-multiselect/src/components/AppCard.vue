@@ -11,33 +11,6 @@ export default {
 		itemType: String,
 		isActive: Boolean,
 	},
-
-	computed: {
-		languageFix() {
-			switch (this.searchItem.original_language) {
-				case 'en':
-					return 'gb';
-
-				case 'ja':
-					return 'jp';
-
-				case 'zh':
-					return 'cn';
-
-				case 'ko':
-					return 'kr';
-
-				default:
-					return this.searchItem.original_language;
-			}
-		},
-	},
-
-	methods: {
-		voteWithStars() {
-			return Math.ceil(this.searchItem.vote_average / 2);
-		},
-	},
 };
 </script>
 
