@@ -1,19 +1,23 @@
 <template>
 	<Calender />
-	<div v-if="false" style="overflow-x: hidden">
+	<div v-if="true" style="overflow-x: hidden">
 		<header>
 			<nav class="navbar navbar-expand-sm">
 				<div class="container">
 					<p class="navbar-brand">My Test Project for all my silly Ideas</p>
-					<button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
-						data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+					<button
+						class="navbar-toggler d-lg-none"
+						type="button"
+						data-bs-toggle="collapse"
+						data-bs-target="#collapsibleNavId"
+						aria-controls="collapsibleNavId"
+						aria-expanded="false"
 						aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
 					</button>
 					<div class="collapse navbar-collapse" id="collapsibleNavId">
 						<ul class="me-auto"></ul>
-						<AutoComplete :options="{ placeholder: 'Search for a series...' }"
-							:data="state.autocompleteSearch" :select-fn="autocompleteSearch" />
+						<AutoComplete :options="{ placeholder: 'Search for a series...' }" :data="state.autocompleteSearch" :select-fn="autocompleteSearch" />
 						<a href="#" @click="show = true" class="btn btn-outline-info">Profile</a>
 					</div>
 				</div>
@@ -74,9 +78,13 @@
 
 		<!-- <AutoComplete :options="{ placeholder: 'Select Series' }" :data="state.autocompleteSearch" /> -->
 		<main class="container mt-4">
-			<AutoComplete v-slot="{ properties }" :options="{ placeholder: 'Search for a series...' }"
-				:data="state.autocompleteSearch" :select-fn="autocompleteSearch">
-				<img :src="`http://cinema-api.jodu555.de/images/${properties.ID}/cover.jpg?auth-token=SECR-DEV`"
+			<AutoComplete
+				v-slot="{ properties }"
+				:options="{ placeholder: 'Search for a series...' }"
+				:data="state.autocompleteSearch"
+				:select-fn="autocompleteSearch">
+				<img
+					:src="`http://cinema-api.jodu555.de/images/${properties.ID}/cover.jpg?auth-token=SECR-DEV`"
 					style="width: 10%; height: auto; margin-right: 0.5rem" />
 			</AutoComplete>
 			<MultiSelect class="mt-4 mb-4" :playlists="state.playlists" :checkAll="checkAll" />
@@ -88,10 +96,20 @@
 			<br />
 			<button class="btn btn-outline-primary" @click="addEmptyItem">Add Item</button>
 
-			<draggable v-if="false" class="list-group" tag="ul" :component-data="{
-				tag: 'ul',
-				name: !drag ? 'flip-list' : null,
-			}" :list="state.list" v-bind="dragOptions" @start="drag = true" @end="drag = false" @change="change" item-key="ID">
+			<draggable
+				v-if="true"
+				class="list-group"
+				tag="ul"
+				:component-data="{
+					tag: 'ul',
+					name: !drag ? 'flip-list' : null,
+				}"
+				:list="state.list"
+				v-bind="dragOptions"
+				@start="drag = true"
+				@end="drag = false"
+				@change="change"
+				item-key="ID">
 				<template #item="{ element }">
 					<li class="list-group-item" v-auto-animate>
 						<div class="d-flex justify-content-between">
@@ -99,14 +117,12 @@
 								{{ element.name }} -
 								{{ element.categorie }}
 								<span class="badge bg-info mx-2">{{ element.order }}</span>
-								<button v-if="!element.edited" type="button" @click="element.edited = true"
-									class="btn btn-outline-primary">
+								<button v-if="!element.edited" type="button" @click="element.edited = true" class="btn btn-outline-primary">
 									<font-awesome-icon :icon="['fa-solid', 'fa-pen']" size="lg" />
 								</button>
 							</div>
 							<div>
-								<button v-if="element.edited" type="button" @click="element.edited = false"
-									class="btn btn-close"></button>
+								<button v-if="element.edited" type="button" @click="element.edited = false" class="btn btn-close"></button>
 							</div>
 						</div>
 
@@ -124,8 +140,7 @@
 									<label for="name" class="form-label">Kategorie:</label>
 								</div>
 								<div class="col-3">
-									<select v-model="element.categorie" style="width: 100%" class="form-select"
-										aria-label="Default select example">
+									<select v-model="element.categorie" style="width: 100%" class="form-select" aria-label="Default select example">
 										<option selected disabled>Kategorie</option>
 										<option>Aniworld</option>
 										<option>STO</option>
@@ -153,8 +168,7 @@
 									<label for="url" class="form-label">Aniworld:</label>
 								</div>
 								<div class="col-7">
-									<input type="text" class="form-control" id="url"
-										v-model="element.references.aniworld" />
+									<input type="text" class="form-control" id="url" v-model="element.references.aniworld" />
 								</div>
 							</div>
 							<div class="row text-center align-items-center">
@@ -162,8 +176,7 @@
 									<label for="url" class="form-label">Zoro:</label>
 								</div>
 								<div class="col-7">
-									<input type="text" class="form-control" id="url"
-										v-model="element.references.zoro" />
+									<input type="text" class="form-control" id="url" v-model="element.references.zoro" />
 								</div>
 							</div>
 							<hr />
@@ -178,12 +191,14 @@
 							</div>
 
 							<div class="d-flex justify-content-end">
-								<button type="button" @click="element.edited = false"
-									class="btn btn-outline-danger mx-2">Cancel</button>
-								<button type="button" @click="
-									element.edited = false;
-								save();
-								" class="btn btn-outline-success">
+								<button type="button" @click="element.edited = false" class="btn btn-outline-danger mx-2">Cancel</button>
+								<button
+									type="button"
+									@click="
+										element.edited = false;
+										save();
+									"
+									class="btn btn-outline-success">
 									Save
 								</button>
 							</div>
@@ -200,8 +215,7 @@
 			<!-- {{ item.title }}
 			{{ item.data.length }}
 			{{ item.data.length > 1 }} -->
-			<VideoCarousel v-if="item.data.length > 1" class="pb-4 pt-10" :category="item.title" :wrapAround="true"
-				:list="item.data" />
+			<VideoCarousel v-if="item.data.length > 1" class="pb-4 pt-10" :category="item.title" :wrapAround="true" :list="item.data" />
 		</div>
 		<!-- <VideoCarousel v-if="list?.foryou?.length > 1" class="pb-4 pt-10" category="For You" :wrapAround="true" :list="list.foryou" />
 		<VideoCarousel v-if="list?.newest?.length > 1" class="pb-4 pt-10" category="Newest" :wrapAround="false" :list="list.newest" /> -->
@@ -283,35 +297,35 @@ onMounted(async () => {
 	// 	.slice(0, forYouItems);
 	// list.newest = series.reverse().slice(0, newestItems);
 
-	const response = await axios.get(`http://localhost:3100/recommendation?auth-token=SECR-DEV`);
+	// const response = await axios.get(`http://localhost:3100/recommendation?auth-token=SECR-DEV`);
 
-	Object.keys(response.data).forEach((k) => {
-		console.log(k, response.data[k].data);
-		// list[k] = response.data[k];
+	// Object.keys(response.data).forEach((k) => {
+	// 	console.log(k, response.data[k].data);
+	// 	// list[k] = response.data[k];
 
-		list[k] = {
-			title: response.data[k].title,
-			data: response.data[k].data.map((ID) => {
-				const f = res.data.find((z) => z.ID == ID);
-				if (f.image == true) {
-					f.url = `http://cinema-api.jodu555.de/images/${f.ID}/cover.jpg?auth-token=${'SECR-DEV'}`;
-				} else {
-					f.url = f.infos.imageURL;
-				}
-				return f;
-			}),
-		};
-	});
+	// 	list[k] = {
+	// 		title: response.data[k].title,
+	// 		data: response.data[k].data.map((ID) => {
+	// 			const f = res.data.find((z) => z.ID == ID);
+	// 			if (f.image == true) {
+	// 				f.url = `http://cinema-api.jodu555.de/images/${f.ID}/cover.jpg?auth-token=${'SECR-DEV'}`;
+	// 			} else {
+	// 				f.url = f.infos.imageURL;
+	// 			}
+	// 			return f;
+	// 		}),
+	// 	};
+	// });
 });
 
 function autocompleteSearch(ID, value) {
 	console.log('Passed Through', ID, value);
 }
 
-// useExtendedWatch(state.playlists, (newValue, oldValue) => {
-// 	console.log(`newValue`, newValue);
-// 	console.log(`oldValue`, oldValue);
-// });
+useExtendedWatch(state.playlists, (newValue, oldValue) => {
+	console.log(`newValue`, newValue);
+	console.log(`oldValue`, oldValue);
+});
 // useExtendedWatch(state.list, (newValue, oldValue) => {
 // 	console.log(`newValue`, newValue);
 // 	console.log(`oldValue`, oldValue);
@@ -351,7 +365,7 @@ const pushTodoListUpdate = async () => {
 	});
 	// this.$socket.emit('todoListUpdate', saveList);
 	console.log(saveList);
-	await axios.post('http://localhost:3200/todo', saveList);
+	// await axios.post('http://localhost:3200/todo', saveList);
 };
 
 const dragOptions = computed(() => {

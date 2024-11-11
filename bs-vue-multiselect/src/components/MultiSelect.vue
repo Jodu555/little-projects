@@ -7,7 +7,7 @@
 		</button>
 		<ul class="dropdown-menu scrollable">
 			<li @click="checkAll" class="px-5 dropdown-item form-check">
-				<label class="form-check-label nosel">Select All</label>
+				<label class="form-check-label nosel">{{ selectedPlaylists.find((x) => x.checked) ? 'Unselect' : 'Select' }} All</label>
 			</li>
 			<li v-for="playlist in props.playlists" @click="playlist.checked = !playlist.checked" class="px-4 dropdown-item">
 				<font-awesome-icon :icon="['fa-regular', playlist.checked ? 'fa-square-check' : 'fa-square']" size="lg" />
